@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface RankRepository  extends JpaRepository<Rank, Integer> {
+public interface RankRepository  extends JpaRepository<Rank, Long> {
     @Query("SELECT m FROM Rank m WHERE  m.name = :name and m.isDeleted=false")
     Rank findByName(String name);
 
