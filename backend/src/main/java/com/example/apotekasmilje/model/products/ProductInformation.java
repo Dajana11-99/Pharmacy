@@ -25,7 +25,7 @@ public class ProductInformation {
    @SequenceGenerator(name = "product_i_sequence_generator", sequenceName = "product_i_sequence", initialValue = 100)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_i_sequence_generator")
    @Column(name = "id", unique = true)
-   private int id;
+   private Long id;
    @Column(name = "description")
    private String description;
    @Column(name = "manufacturer")

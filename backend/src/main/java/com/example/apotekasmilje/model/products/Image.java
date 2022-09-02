@@ -23,7 +23,7 @@ public class Image {
    @SequenceGenerator(name = "image_sequence_generator", sequenceName = "image_sequence", initialValue = 100)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "image_sequence_generator")
    @Column(name = "image_id", unique = true)
-   private int id;
+   private Long id;
    @Column(name = "id", nullable = false)
    private String url;
    @Column(columnDefinition = "boolean default false")

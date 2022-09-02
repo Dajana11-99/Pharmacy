@@ -1,6 +1,7 @@
 package com.example.apotekasmilje.service.impl;
 
 import com.example.apotekasmilje.model.users.Person;
+import com.example.apotekasmilje.model.users.UserRole;
 import com.example.apotekasmilje.model.users.UserTokenState;
 import com.example.apotekasmilje.repository.PersonRepository;
 import com.example.apotekasmilje.security.TokenUtils;
@@ -18,7 +19,7 @@ public class LogInServiceImpl implements LoginService {
 
     @Autowired
     private  TokenUtils tokenUtils;
-    @Autowired
+   @Autowired
     private  AuthenticationManager authenticationManager;
     @Autowired
     private  PersonRepository personRepository;

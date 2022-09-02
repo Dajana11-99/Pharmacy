@@ -25,7 +25,7 @@ public class Rank {
    @SequenceGenerator(name = "rank_sequence_generator", sequenceName = "rank_sequence", initialValue = 100)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rank_sequence_generator")
    @Column(name = "id", unique = true)
-   private int id;
+   private Long id;
    @Column(name="name",nullable = false)
    private String name;
    @Column(name="points",nullable = false)

@@ -22,7 +22,7 @@ public class Payment {
    @SequenceGenerator(name = "payment_sequence_generator", sequenceName = "payment_sequence", initialValue = 100)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payment_sequence_generator")
    @Column(name = "id", unique = true)
-   private int id;
+   private Long id;
    @Column(name = "name")
    private String name;
    @Column(name = "price")

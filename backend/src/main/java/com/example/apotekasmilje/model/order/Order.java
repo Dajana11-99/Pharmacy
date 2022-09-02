@@ -25,7 +25,7 @@ public class Order {
    @SequenceGenerator(name = "order_sequence_generator", sequenceName = "order_sequence", initialValue = 100)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_sequence_generator")
    @Column(name = "id", unique = true)
-   private int id;
+   private Long id;
    @Column(name = "date")
    private Date date;
    @Column(name = "totalPrice")

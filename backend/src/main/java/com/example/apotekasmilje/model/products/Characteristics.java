@@ -25,7 +25,7 @@ public class Characteristics {
    @SequenceGenerator(name = "c_sequence_generator", sequenceName = "c_sequence", initialValue = 100)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "c_sequence_generator")
    @Column(name = "id", unique = true)
-   private int id;
+   private Long id;
    @Column(name = "name",nullable = false)
    private String name;
    @ManyToOne(cascade = CascadeType.ALL)

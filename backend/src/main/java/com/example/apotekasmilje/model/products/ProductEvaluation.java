@@ -25,7 +25,7 @@ public class ProductEvaluation {
    @SequenceGenerator(name = "product_e_sequence_generator", sequenceName = "product_e_sequence", initialValue = 100)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_e_sequence_generator")
    @Column(name = "id", unique = true)
-   private int id;
+   private Long id;
    @Column(name = "comment")
    private String comment;
    @Column(name = "grade")

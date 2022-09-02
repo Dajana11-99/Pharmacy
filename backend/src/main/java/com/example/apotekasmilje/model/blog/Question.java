@@ -24,7 +24,7 @@ public class Question {
    @SequenceGenerator(name = "question_sequence_generator", sequenceName = "question_sequence", initialValue = 100)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "question_sequence_generator")
    @Column(name = "id", unique = true)
-   private int id;
+   private Long id;
    @Column(name = "text")
    private String text;
    @Column(name = "status")

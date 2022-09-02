@@ -24,7 +24,7 @@ public class Basket {
    @SequenceGenerator(name = "basket_sequence_generator", sequenceName = "basket_sequence", initialValue = 100)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "basket_sequence_generator")
    @Column(name = "id", unique = true)
-   private int id;
+   private Long id;
    @Column(name="totalPrice")
    private float totalPrice;
    @OneToOne(cascade = {CascadeType.ALL})

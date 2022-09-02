@@ -19,14 +19,15 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PersonDto {
-    private int id;
+    private Long   id;
     private String firstName;
     private String lastName;
     private String personEmail;
     private String phoneNum;
     private String password;
-    private Date birth;
+    private String birth;
     private Gender gender;
     private String userRole;
+    private Integer point;
     private Timestamp lastPasswordResetDate;
 }

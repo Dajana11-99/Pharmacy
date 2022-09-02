@@ -26,7 +26,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     // Funkcija koja na osnovu username-a iz baze vraca objekat User-a

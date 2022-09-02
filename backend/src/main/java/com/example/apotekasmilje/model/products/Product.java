@@ -23,7 +23,7 @@ public class Product implements Serializable {
    @SequenceGenerator(name = "product_sequence_generator", sequenceName = "product_sequence", initialValue = 100)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sequence_generator")
    @Column(name = "id", unique = true)
-   private int id;
+   private Long id;
    @Column(name = "name", nullable = false)
    private String name;
    @Column(name = "price", nullable = false)
@@ -41,7 +41,7 @@ public class Product implements Serializable {
    private List<Image> image;
    @OneToOne(cascade = {CascadeType.ALL})
    private ProductInformation productInformation;
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE} )
     @JoinColumn(name="productCategory_id")
    private ProductCategory productCategory;
    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
