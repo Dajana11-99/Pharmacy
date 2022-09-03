@@ -15,6 +15,9 @@ public interface ProductCatgoryRepository  extends PagingAndSortingRepository<Pr
     @Query("SELECT m FROM ProductCategory m WHERE  m.name = :name")
     ProductCategory findByName(String name);
 
+    @Query("SELECT m FROM ProductCategory m WHERE  m.productType.id = :type")
+    List<ProductCategory> findByTypeId(@Param("type")Long type);
+
     @Query("SELECT m FROM ProductCategory m join  ProductType p on m.productType.id=p.id" +
             "  WHERE   UPPER(m.name)  LIKE  UPPER(CONCAT(:name, '%')) " +
             " or UPPER(p.name) LIKE UPPER(CONCAT(:name, '%'))")

@@ -12,6 +12,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 @Entity
 @Getter
@@ -29,7 +30,7 @@ public class Product implements Serializable {
    @Column(name = "price", nullable = false)
    private float price;
    @Column(name = "expirationDate", nullable = false)
-   private Date expirationDate;
+   private LocalDate expirationDate;
    @Column(name = "quantity", nullable = false)
    private int quantity;
    @Column(name = "onSale", columnDefinition = "boolean default false")
@@ -39,11 +40,13 @@ public class Product implements Serializable {
            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
            inverseJoinColumns = @JoinColumn(name = "image_id", referencedColumnName = "id"))
    private List<Image> image;
-   @OneToOne(cascade = {CascadeType.ALL})
+   @OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
    private ProductInformation productInformation;
    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
    @JoinColumn(name = "productCategory_id")
    private ProductCategory productCategory;
    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
    private List<ProductSale> productSales;
+   @OneToMany(mappedBy = "product", cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
+   private List<Characteristics>characteristics;
 }

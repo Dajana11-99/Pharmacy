@@ -83,4 +83,14 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
          .productCategoriesToProductCategoryDtos(productCatgoryRepository
          .searchByNameAndProductType(search));
     }
+
+    @Override
+    public ProductCategory findById(Long id) {
+        return productCatgoryRepository.findById(id).get();
+    }
+
+    public List<ProductCategoryDto> findByType(Long id){
+       return productCategoryMapper
+                .productCategoriesToProductCategoryDtos(productCatgoryRepository.findByTypeId(id));
+    }
 }

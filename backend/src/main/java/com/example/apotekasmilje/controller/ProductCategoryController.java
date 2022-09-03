@@ -28,6 +28,15 @@ public class ProductCategoryController {
         }
     }
     @PreAuthorize("hasRole('Master_Of_Pharmacy')")
+    @GetMapping("/findByType/{id}")
+    public ResponseEntity<List<ProductCategoryDto>> findByType(@PathVariable Long id)  {
+        try{
+            return  new ResponseEntity<>(productCategoryService.findByType(id), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+    @PreAuthorize("hasRole('Master_Of_Pharmacy')")
     @PostMapping("/searchCategory")
     public ResponseEntity<List<ProductCategoryDto>> searchCategory(@RequestBody SearchDto searchDto)  {
         try{
