@@ -12,7 +12,7 @@ public class ProductTypeMapper {
         return  new ProductTypeDto(productType.getId(), productType.getName());
     }
     public ProductType productDtoToProduct(ProductTypeDto productTypeDto){
-        return new ProductType(productTypeDto.getId(), productTypeDto.getName(), false);
+        return new ProductType(productTypeDto.getId(), productTypeDto.getName());
     }
 
     public List<ProductTypeDto> productTypesToProductTypeDtos(List<ProductType> productTypes){

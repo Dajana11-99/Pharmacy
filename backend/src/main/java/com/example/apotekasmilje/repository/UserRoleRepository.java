@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
-    @Query("SELECT m FROM UserRole m WHERE  m.name = :name and m.isDeleted=false")
+    @Query("SELECT m FROM UserRole m WHERE  m.name = :name")
     UserRole findByName(String name);
 }

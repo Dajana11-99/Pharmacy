@@ -26,7 +26,7 @@ public class ProductInformation {
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_i_sequence_generator")
    @Column(name = "id", unique = true)
    private Long id;
-   @Column(name = "description")
+   @Column(name = "description",length = 512)
    private String description;
    @Column(name = "manufacturer")
    private String manufacturer;
@@ -38,6 +38,4 @@ public class ProductInformation {
    private String ingredients;
    @Column(name = "characteristics")
    private String characteristics;
-   @Column(columnDefinition = "boolean default false")
-   private Boolean isDeleted=false;
 }

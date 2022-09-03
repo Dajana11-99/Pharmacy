@@ -54,8 +54,6 @@ public class Person implements Serializable, UserDetails {
    private Gender gender;
    @Column(name="point")
    private Integer point;
-   @Column(columnDefinition = "boolean default false")
-   private Boolean isDeleted=false;
    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE} )
    @JoinColumn(name="role_id")
    private UserRole userRole;

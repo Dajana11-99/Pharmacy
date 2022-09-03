@@ -16,7 +16,7 @@ public class PersonMapper {
             return  new Person(null, personDto.getFirstName(), personDto.getLastName(),
                     personDto.getPersonEmail(), personDto.getPhoneNum(),
                     personDto.getPassword(),LocalDate.parse(personDto.getBirth()),
-            personDto.getGender(), personDto.getPoint(), false,null,null);
+            personDto.getGender(), personDto.getPoint(),null,null);
         }catch (Exception e){
             return null;
         }
@@ -34,7 +34,7 @@ public class PersonMapper {
             return new AuthenticatedUser(null, personDto.getFirstName(), personDto.getLastName(),
                     personDto.getPersonEmail(), personDto.getPhoneNum(),
                     personDto.getPassword(), birth,
-                    personDto.getGender(), personDto.getPoint(), false, null, null,null);
+                    personDto.getGender(), personDto.getPoint(), null, null,null);
         }catch (Exception e){
             return null;
         }

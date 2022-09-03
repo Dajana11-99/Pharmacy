@@ -40,6 +40,4 @@ public class Blog {
    @ManyToOne(cascade = {CascadeType.ALL})
    @JoinColumn(name="pharmacy_id")
    private PharmacyTechnicians pharmacyTechnicians;
-   @Column(columnDefinition = "boolean default false")
-   private Boolean isDeleted=false;
 }

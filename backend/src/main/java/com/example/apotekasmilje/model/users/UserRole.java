@@ -30,8 +30,6 @@ public class UserRole implements GrantedAuthority {
    private Long id;
    @Column(name="name",nullable = false)
    private String name;
-   @Column(columnDefinition = "boolean default false")
-   private Boolean isDeleted=false;
    @JsonIgnore
    @Override
    @Column(unique = false,nullable = false)

@@ -25,6 +25,4 @@ public class ProductType {
    private Long id;
    @Column(name = "name",nullable = false)
    private String name;
-   @Column(columnDefinition = "boolean default false")
-   private Boolean isDeleted=false;
 }

@@ -39,9 +39,8 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     public boolean update(ProductTypeDto productTypeDto) {
         try {
             ProductType productType = productTypeRepository
-                    .findByName(productTypeDto.getName());
-            if (productType == null)
-                return false;
+                    .findById(productTypeDto.getId()).get();
+            if (productType == null) return false;
             productType.setName(productTypeDto.getName());
             productTypeRepository.save(productType);
             return true;
@@ -53,15 +52,18 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     public  boolean delete(ProductTypeDto productTypeDto){
         try {
             ProductType productType = productTypeRepository
-                    .findByName(productTypeDto.getName());
+                    .findById(productTypeDto.getId()).get();
             if (productType == null)
                 return false;
-            productTypeRepository.delete(productType);
-            productTypeRepository.save(productType);
+            productTypeRepository.deleteById(productType.getId());
             return true;
         }catch (Exception e){
             return false;
         }
+    }
+
+    public ProductType findById(Long id){
+        return  productTypeRepository.findById(id).get();
     }
 
 }

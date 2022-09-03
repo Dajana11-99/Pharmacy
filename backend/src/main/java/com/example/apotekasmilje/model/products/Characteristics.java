@@ -31,6 +31,4 @@ public class Characteristics {
    @ManyToOne(cascade = CascadeType.ALL)
    @JoinColumn(name="product_id")
    private Product product;
-   @Column(columnDefinition = "boolean default false")
-   private Boolean isDeleted=false;
 }

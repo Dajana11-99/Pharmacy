@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
-    @Query("SELECT m FROM Person m WHERE  m.personEmail = :email and m.isDeleted=false")
+    @Query("SELECT m FROM Person m WHERE  m.personEmail = :email")
     Person findByPersonEmail(String email);
-    @Query("SELECT m.userRole.name FROM Person m WHERE  m.id = :id and m.isDeleted=false")
+    @Query("SELECT m.userRole.name FROM Person m WHERE  m.id = :id")
     String findRoleById(Long id);
 
 

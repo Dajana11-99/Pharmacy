@@ -8,7 +8,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
+
+
 
 @Entity
 @Table(name="product_category")
@@ -24,11 +29,10 @@ public class ProductCategory {
    private Long id;
    @Column(name = "name", nullable = false)
    private String name;
-   @Column(name = "description", nullable = false)
+   @Column(name = "description", nullable = false,length = 512)
    private String description;
-   @ManyToOne(cascade = {CascadeType.ALL})
+   @OnDelete(action = OnDeleteAction.CASCADE)
+   @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
    @JoinColumn(name="type_id")
    private  ProductType productType;
-   @Column(columnDefinition = "boolean default false")
-   private Boolean isDeleted=false;
 }

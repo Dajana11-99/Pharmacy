@@ -36,7 +36,4 @@ public class Rank {
    private int pointsForCompletedOrder;
    @Column(name="pointsForCancelledOrders")
    private int pointsForCancelledOrders;
-   @Column(columnDefinition = "boolean default false")
-   private Boolean isDeleted=false;
-
 }

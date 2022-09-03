@@ -26,6 +26,4 @@ public class Image {
    private Long id;
    @Column(name = "id", nullable = false)
    private String url;
-   @Column(columnDefinition = "boolean default false")
-   private Boolean isDeleted=false;
 }

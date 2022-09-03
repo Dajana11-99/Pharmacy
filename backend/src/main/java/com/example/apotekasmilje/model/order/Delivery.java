@@ -26,6 +26,4 @@ public class Delivery {
    private String name;
    @Column(name = "price", nullable = false)
    private float price;
-   @Column(columnDefinition = "boolean default false")
-   private Boolean isDeleted=false;
 }

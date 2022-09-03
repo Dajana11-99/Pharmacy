@@ -32,19 +32,19 @@ public class ProductTypeController {
     public ResponseEntity<String> addProductType(@RequestBody ProductTypeDto productTypeDto)  {
         try {
             if(productTypeService.add(productTypeDto))
-                return  new ResponseEntity<>("Успјешно  креиран производ!", HttpStatus.OK);
+                return  new ResponseEntity<>("Успјешно креиран тип производа!", HttpStatus.OK);
             return  new ResponseEntity<>("Производ са тим именом већ постоји!", HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             return  new ResponseEntity<>("Техничка грешка, покушајте поново касније", HttpStatus.BAD_REQUEST);
         }
     }
     @PreAuthorize("hasRole('Master_Of_Pharmacy')")
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<String> updateProductType(@RequestBody ProductTypeDto productTypeDto)  {
         try {
             if(productTypeService.update(productTypeDto))
-                return  new ResponseEntity<>("Успјешно  aжуриран производ!", HttpStatus.OK);
-            return  new ResponseEntity<>("Производ није ажуриран!", HttpStatus.BAD_REQUEST);
+                return  new ResponseEntity<>("Успјешно aжуриран тип производа!", HttpStatus.OK);
+            return  new ResponseEntity<>("Тип производа није ажуриран!", HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             return  new ResponseEntity<>("Техничка грешка, покушајте поново касније", HttpStatus.BAD_REQUEST);
         }
@@ -55,8 +55,8 @@ public class ProductTypeController {
     public ResponseEntity<String> deleteProductType(@RequestBody ProductTypeDto productTypeDto)  {
         try {
             if(productTypeService.delete(productTypeDto))
-                return  new ResponseEntity<>("Успјешно обрисан производ!", HttpStatus.OK);
-            return  new ResponseEntity<>("Производ није обрисан!", HttpStatus.BAD_REQUEST);
+                return  new ResponseEntity<>("Успјешно обрисан тип производа!", HttpStatus.OK);
+            return  new ResponseEntity<>("Тип производа није обрисан!", HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             return  new ResponseEntity<>("Техничка грешка, покушајте поново касније", HttpStatus.BAD_REQUEST);
         }

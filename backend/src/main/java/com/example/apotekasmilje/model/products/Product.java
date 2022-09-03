@@ -32,21 +32,18 @@ public class Product implements Serializable {
    private Date expirationDate;
    @Column(name = "quantity", nullable = false)
    private int quantity;
-   @Column(name = "onSale",columnDefinition = "boolean default false")
-   private boolean onSale=false;
-   @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+   @Column(name = "onSale", columnDefinition = "boolean default false")
+   private boolean onSale = false;
+   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @JoinTable(name = "product_images",
-         joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
-         inverseJoinColumns = @JoinColumn(name = "image_id", referencedColumnName = "id"))
+           joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
+           inverseJoinColumns = @JoinColumn(name = "image_id", referencedColumnName = "id"))
    private List<Image> image;
    @OneToOne(cascade = {CascadeType.ALL})
    private ProductInformation productInformation;
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE} )
-    @JoinColumn(name="productCategory_id")
+   @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
+   @JoinColumn(name = "productCategory_id")
    private ProductCategory productCategory;
-   @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
    private List<ProductSale> productSales;
-   @Column(columnDefinition = "boolean default false")
-   private Boolean isDeleted=false;
-
 }

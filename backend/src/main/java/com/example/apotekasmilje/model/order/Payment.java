@@ -27,6 +27,4 @@ public class Payment {
    private String name;
    @Column(name = "price")
    private float price;
-   @Column(columnDefinition = "boolean default false")
-   private Boolean isDeleted=false;
 }
