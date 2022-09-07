@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 @Entity
 @Table(name="image")
@@ -18,7 +19,7 @@ import java.util.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Image {
+public class Image implements Serializable {
    @Id
    @SequenceGenerator(name = "image_sequence_generator", sequenceName = "image_sequence", initialValue = 100)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "image_sequence_generator")

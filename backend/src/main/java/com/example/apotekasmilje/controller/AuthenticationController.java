@@ -70,7 +70,7 @@ public class AuthenticationController {
         if(existUser!=null) return ResponseEntity.badRequest().body(EMAIL_ALREADY_IN_USE);
         try {
                 if(personService.registerAuthenticatedUser(personDto)==null)
-                    return new ResponseEntity<>("Технички проблем, покушајте поново касније!", HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>("Корисник са тим мејлом већ постоји!", HttpStatus.BAD_REQUEST);
                 return ResponseEntity.status(201).body(SUCCESS);
         }catch (Exception e){
             return new ResponseEntity<>("Технички проблем, покушајте поново касније!", HttpStatus.BAD_REQUEST);

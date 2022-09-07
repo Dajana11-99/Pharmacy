@@ -9,6 +9,7 @@ import com.example.apotekasmilje.repository.ProductCatgoryRepository;
 import com.example.apotekasmilje.service.ProductCategoryService;
 import com.example.apotekasmilje.service.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,12 +28,11 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     private ProductCategoryMapper productCategoryMapper = new ProductCategoryMapper();
 
     public List<ProductCategoryDto> productCategories(int pageNo,int pageSize){
-        Pageable paging = PageRequest.of(pageNo, pageSize);
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("name"));
         Page<ProductCategory> pagedResult = productCatgoryRepository.findAll(paging);
         return productCategoryMapper
                 .productCategoriesToProductCategoryDtos(pagedResult.toList());
     }
-
 
     public boolean add(ProductCategoryDto productCategoryDto) {
         try {

@@ -1,7 +1,9 @@
 package com.example.apotekasmilje.service.impl;
 
 import com.example.apotekasmilje.dto.PersonDto;
+import com.example.apotekasmilje.dto.ProductDto;
 import com.example.apotekasmilje.mapper.PersonMapper;
+import com.example.apotekasmilje.model.products.Product;
 import com.example.apotekasmilje.model.users.AuthenticatedUser;
 import com.example.apotekasmilje.model.users.Person;
 import com.example.apotekasmilje.model.users.Rank;
@@ -12,10 +14,15 @@ import com.example.apotekasmilje.repository.UserRoleRepository;
 import com.example.apotekasmilje.service.PersonService;
 import com.example.apotekasmilje.service.RankService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Service
@@ -37,6 +44,7 @@ public class PersonServiceImpl implements PersonService {
     public Person registerAuthenticatedUser(PersonDto personDto)  {
 
         try {
+            if(personRepository.findByPersonEmail(personDto.getPersonEmail())!=null)return null;
             AuthenticatedUser user= personMapper.personDtoToAuthenticatedUser(personDto);
             UserRole auth = userRoleRepository.findByName("ROLE_Authenticated_User");
             Rank rank = rankService.findByName("БРОНЗАНИ");
@@ -68,5 +76,67 @@ public class PersonServiceImpl implements PersonService {
     public PersonDto personByEmail(String email){
         return  personMapper.personToPersonDto(personRepository.findByPersonEmail(email));
     }
+    public Boolean checkIfUserHasRank(Long id){
+        return personRepository.checkIfUserHasRank(id);
+    }
+    @Override
+    public List<PersonDto> getAll(int pageNo, int pageSize) {
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("userRole"));
+        Page<Person> pagedResult = personRepository.findAll(paging);
+        return personMapper.personsToPersonDtos(pagedResult.toList());
+    }
+
+    @Override
+    public List<PersonDto> search(String name) {
+        List<Person> persons = personRepository
+         .searchByFirstAndLastNameAndPersonEmail(name);
+        return personMapper.personsToPersonDtos(persons);
+    }
+
+    public boolean delete(PersonDto personDto){
+        try{
+            Person person=personRepository.findById(personDto.getId()).get();
+            if(person==null)return false;
+            personRepository.deleteById(personDto.getId());
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+    public boolean add(PersonDto personDto){
+        try{
+            if(personRepository.findByPersonEmail(personDto.getPersonEmail())!=null)return false;
+            AuthenticatedUser user= personMapper.personDtoToAuthenticatedUser(personDto);
+            UserRole auth = userRoleRepository.findByName("ROLE_Pharmacy_Technicians");
+            if(auth==null)return false;
+            user.setUserRole(auth);
+            user.setPassword(passwordEncoder.encode(personDto.getPassword()));
+            personRepository.save(user);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+    public boolean checkUserRank(){
+        try {
+            for (AuthenticatedUser authenticatedUser : personRepository.findAllUsers()) {
+                List<Rank> ranks = rankService.getAll();
+                    for(int i=0;i<ranks.size();i++){
+                        if(authenticatedUser.getPoint()>=ranks.get(i).getPoints()
+                            && authenticatedUser.getPoint() < ranks.get(i+1).getPoints()){
+                            authenticatedUser.setRank(ranks.get(i));
+                            personRepository.save(authenticatedUser);
+                        }else if(authenticatedUser.getPoint()>=ranks.get(ranks.size()-1).getPoints()){
+                            authenticatedUser.setRank(ranks.get(ranks.size()-1));
+                            personRepository.save(authenticatedUser);
+                        }
+                    }
+            }
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
 
 }

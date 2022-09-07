@@ -4,10 +4,10 @@ import com.example.apotekasmilje.dto.PersonDto;
 import com.example.apotekasmilje.model.users.AuthenticatedUser;
 import com.example.apotekasmilje.model.users.Person;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class PersonMapper {
     public Person personDtoToPerson(PersonDto personDto)  {
@@ -21,6 +21,12 @@ public class PersonMapper {
             return null;
         }
 
+    }
+    public List<PersonDto> personsToPersonDtos(List<Person>persons){
+        List<PersonDto> personDtos= new ArrayList<>();
+        for(Person person: persons)
+         personDtos.add(personToPersonDto(person));
+        return personDtos;
     }
 
     public PersonDto personToPersonDto(Person person){

@@ -18,7 +18,6 @@ import java.util.List;
 public class ProductTypeController {
     @Autowired
     private ProductTypeService productTypeService;
-    @PreAuthorize("hasRole('Master_Of_Pharmacy')")
     @GetMapping("/all")
     public ResponseEntity<List<ProductTypeDto>> allProductTypes()  {
         try{
