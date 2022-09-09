@@ -21,10 +21,10 @@ import java.util.*;
 @NoArgsConstructor
 public class Image implements Serializable {
    @Id
-   @SequenceGenerator(name = "image_sequence_generator", sequenceName = "image_sequence", initialValue = 100)
+   @SequenceGenerator(name = "image_sequence_generator", sequenceName = "image_sequence", initialValue = 300)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "image_sequence_generator")
-   @Column(name = "image_id", unique = true)
+   @Column(name = "id", unique = true)
    private Long id;
-   @Column(name = "id", nullable = false)
+   @Column(name = "url", nullable = false)
    private String url;
 }

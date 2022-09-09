@@ -20,7 +20,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class ProductCategory {
    @Id
-   @SequenceGenerator(name = "product_cat_sequence_generator", sequenceName = "product_cat_sequence", initialValue = 100)
+   @SequenceGenerator(name = "product_cat_sequence_generator", sequenceName = "product_cat_sequence", initialValue = 200)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_cat_sequence_generator")
    @Column(name = "id", unique = true)
    private Long id;

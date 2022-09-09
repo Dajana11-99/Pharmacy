@@ -22,11 +22,11 @@ import java.util.List;
 @NoArgsConstructor
 public class Characteristics {
    @Id
-   @SequenceGenerator(name = "c_sequence_generator", sequenceName = "c_sequence", initialValue = 100)
+   @SequenceGenerator(name = "c_sequence_generator", sequenceName = "c_sequence", initialValue = 300)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "c_sequence_generator")
    @Column(name = "id", unique = true)
    private Long id;
-   @Column(name = "name",nullable = false)
+   @Column(name = "name",nullable = false,length = 512)
    private String name;
    @ManyToOne(cascade = CascadeType.ALL)
    @JoinColumn(name="product_id")

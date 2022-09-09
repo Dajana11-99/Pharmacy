@@ -14,4 +14,7 @@ public interface ProductService {
     boolean delete(ProductDto productDto);
     List<ProductDto> searchByNameAndBrand(String name);
     boolean update(ProductDto productDto);
+    List<ProductDto> findByCategory(int pageNo,int pageSize,Long id);
+
+    ProductDto findById(Long id);
 }

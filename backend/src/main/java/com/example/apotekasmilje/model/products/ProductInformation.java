@@ -22,7 +22,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class ProductInformation {
    @Id
-   @SequenceGenerator(name = "product_i_sequence_generator", sequenceName = "product_i_sequence", initialValue = 100)
+   @SequenceGenerator(name = "product_i_sequence_generator", sequenceName = "product_i_sequence", initialValue = 200)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_i_sequence_generator")
    @Column(name = "id", unique = true)
    private Long id;
@@ -32,10 +32,10 @@ public class ProductInformation {
    private String manufacturer;
    @Column(name = "brand")
    private String brand;
-   @Column(name = "dose")
+   @Column(name = "dose",length = 512)
    private String dose;
-   @Column(name = "ingredients")
+   @Column(name = "ingredients",length = 512)
    private String ingredients;
-   @Column(name = "characteristics")
+   @Column(name = "characteristics",length = 512)
    private String characteristics;
 }

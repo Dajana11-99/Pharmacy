@@ -86,7 +86,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Override
     public ProductCategory findById(Long id) {
-        return productCatgoryRepository.findById(id).get();
+        return  productCatgoryRepository.findById(id).get();
     }
 
     public List<ProductCategoryDto> findByType(Long id){

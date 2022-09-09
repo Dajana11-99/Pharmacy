@@ -65,4 +65,22 @@ public class ProductController {
     public ResponseEntity<List<ProductDto>> searchByNameAndBrand(@RequestBody SearchDto searchDto)  {
         return  new ResponseEntity<>(productService.searchByNameAndBrand(searchDto.getSearch()), HttpStatus.OK);
     }
+
+    @PreAuthorize("hasRole('Master_Of_Pharmacy')")
+    @GetMapping("/findByCategory/{pageNo}/{pageSize}/{id}")
+    public ResponseEntity<List<ProductDto>> findByCategory(@PathVariable int pageNo, @PathVariable int pageSize,@PathVariable Long id)  {
+        try{
+            return  new ResponseEntity<>(productService.findByCategory(pageNo,pageSize,id), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+    @PreAuthorize("hasRole('Master_Of_Pharmacy')")
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<ProductDto> findById(@PathVariable Long id)  {
+
+            return  new ResponseEntity<>(
+                    productService.findById(id), HttpStatus.OK);
+
+    }
 }

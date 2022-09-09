@@ -25,7 +25,7 @@ import java.util.*;
 @NoArgsConstructor
 public class Product implements Serializable  {
    @Id
-   @SequenceGenerator(name = "product_sequence_generator", sequenceName = "product_sequence", initialValue = 100)
+   @SequenceGenerator(name = "product_sequence_generator", sequenceName = "product_sequence", initialValue = 300)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sequence_generator")
    @Column(name = "id", unique = true)
    private Long id;

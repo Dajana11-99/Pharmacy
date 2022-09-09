@@ -22,7 +22,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class ProductEvaluation {
    @Id
-   @SequenceGenerator(name = "product_e_sequence_generator", sequenceName = "product_e_sequence", initialValue = 100)
+   @SequenceGenerator(name = "product_e_sequence_generator", sequenceName = "product_e_sequence", initialValue = 200)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_e_sequence_generator")
    @Column(name = "id", unique = true)
    private Long id;

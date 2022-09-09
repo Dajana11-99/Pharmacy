@@ -4,9 +4,11 @@ package com.example.apotekasmilje.repository;
 import com.example.apotekasmilje.model.products.ProductCategory;
 
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+
 
 import java.util.List;
 

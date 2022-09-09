@@ -32,8 +32,6 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
     @Autowired
     private ProductCategoryService productCategoryService;
-    @Autowired
-    private FirebaseService firebaseService;
     private ProductMapper productMapper = new ProductMapper();
     private CharacteristicsMapper characteristicsMapper = new CharacteristicsMapper();
 
@@ -107,8 +105,12 @@ public class ProductServiceImpl implements ProductService {
             product.setName(productDto.getName());
             product.setImage(imageMapper.imageDtosToImages(productDto.getImage()));
             product.setExpirationDate(LocalDate.parse(productDto.getExpirationDate()));
-            product.setProductInformation(productInformationMapper
-                    .productInformationDtoToProductInformation(productDto.getProductInformation()));
+            product.getProductInformation().setManufacturer(productDto.getProductInformation().getManufacturer());
+            product.getProductInformation().setIngredients(productDto.getProductInformation().getIngredients());
+            product.getProductInformation().setDose(productDto.getProductInformation().getDose());
+            product.getProductInformation().setBrand(productDto.getProductInformation().getBrand());
+            product.getProductInformation().setDescription(productDto.getProductInformation().getDescription());
+            product.getProductInformation().setCharacteristics(productDto.getProductInformation().getCharacteristics());
             characteristicsService.deleteCharacteristics(product.getId());
             product.setCharacteristics(characteristicsMapper
                     .characteristicsDtoToCharacteristics(productDto.getCharacteristics(),product));
@@ -117,6 +119,19 @@ public class ProductServiceImpl implements ProductService {
         }catch (Exception e){
             return false;
         }
+    }
+
+    @Override
+    public List<ProductDto> findByCategory(int pageNo,int pageSize,Long id) {
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("name"));
+        return productMapper.productsToProductDtos(productRepository.findByCategory(id,paging));
+    }
+
+    @Override
+    public ProductDto findById(Long id) {
+
+        return productMapper
+        .productToProductDto(productRepository.findProductById(id));
     }
 
 }
