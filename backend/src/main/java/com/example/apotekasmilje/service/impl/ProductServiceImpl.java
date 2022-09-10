@@ -3,6 +3,7 @@ package com.example.apotekasmilje.service.impl;
 import com.example.apotekasmilje.dto.CharacteristicsDto;
 
 import com.example.apotekasmilje.dto.ProductDto;
+import com.example.apotekasmilje.dto.SearchDto;
 import com.example.apotekasmilje.mapper.CharacteristicsMapper;
 import com.example.apotekasmilje.mapper.ImageMapper;
 import com.example.apotekasmilje.mapper.ProductInformationMapper;
@@ -133,5 +134,39 @@ public class ProductServiceImpl implements ProductService {
         return productMapper
         .productToProductDto(productRepository.findProductById(id));
     }
+    @Override
+    public Product findProductById(Long id) {
+
+        return productRepository.findProductById(id);
+    }
+
+
+    @Override
+    public List<ProductDto> sort(int pageNo, int pageSize, String sort,Long id) {
+        if(Integer.parseInt(sort)==1){
+            Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("price").ascending());
+            return productMapper.productsToProductDtos(productRepository.findByCategory(id,paging));
+        }else if(Integer.parseInt(sort)==2){
+            Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("price").descending());
+            return productMapper.productsToProductDtos(productRepository.findByCategory(id,paging));
+        }else if(Integer.parseInt(sort)==3){
+            return null;
+        }else {
+            Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("name"));
+            return productMapper.productsToProductDtos(productRepository.findByCategory(id,paging));
+        }
+    }
+
+    @Override
+    public List<ProductDto> filterProduct(SearchDto searchDto) {
+        Pageable paging = PageRequest.of(searchDto.getPageNo(), searchDto.getPageSize(),Sort.by("price").ascending());
+        return productMapper
+                .productsToProductDtos(productRepository
+                .filterProduct(searchDto.getFrom(),
+                        searchDto.getTo(),
+                        searchDto.getCategoryId(),
+                        paging));
+    }
+
 
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 /***********************************************************************
  * Module:  ProductEvaluation.java
@@ -26,16 +27,17 @@ public class ProductEvaluation {
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_e_sequence_generator")
    @Column(name = "id", unique = true)
    private Long id;
-   @Column(name = "comment")
+   @Column(name = "comment",length = 512,nullable = false)
    private String comment;
-   @Column(name = "grade")
+   @Column(name = "grade",nullable = false)
    private int grade;
    @Column(name = "status",columnDefinition = "boolean default false")
    private boolean status=false;
-   @ManyToOne(cascade = {CascadeType.ALL})
+   @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
    @JoinColumn(name="product_id")
    private  Product product;
-   @ManyToOne(cascade = {CascadeType.ALL})
+   @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
    @JoinColumn(name="user_id")
    private AuthenticatedUser authenticatedUser;
+   private LocalDate date;
 }

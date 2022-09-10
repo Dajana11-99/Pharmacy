@@ -11,4 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SearchDto {
     private String search;
+    private float from;
+    private float to;
+    private Long categoryId;
+    private int  pageNo;
+    private int  pageSize;
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import java.util.List;
 
 @Getter
@@ -22,4 +23,5 @@ public class ProductDto {
     private ProductInformationDto productInformation;
     private Long idCategory;
     private  List<CharacteristicsDto> characteristics;
+
 }

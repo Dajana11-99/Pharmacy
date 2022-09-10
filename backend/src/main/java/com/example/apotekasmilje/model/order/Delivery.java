@@ -26,4 +26,5 @@ public class Delivery {
    private String name;
    @Column(name = "price", nullable = false)
    private float price;
+
 }

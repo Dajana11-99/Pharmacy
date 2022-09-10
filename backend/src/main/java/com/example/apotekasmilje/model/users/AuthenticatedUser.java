@@ -28,8 +28,8 @@ public class AuthenticatedUser extends Person {
    @JoinColumn(name="rank_id")
    private Rank rank;
 
-   public AuthenticatedUser(Long id, String firstName, String lastName, String personEmail, String phoneNum, String password, LocalDate birth, Gender gender, Integer point, UserRole userRole, Timestamp lastPasswordResetDate, Rank rank) {
-      super(id, firstName, lastName, personEmail, phoneNum, password, birth, gender, point, userRole, lastPasswordResetDate);
+   public AuthenticatedUser(Long id, String firstName, String lastName, String personEmail, String phoneNum, String password, LocalDate birth, Gender gender, Integer point, String address, String place, Long zipCode, UserRole userRole, Timestamp lastPasswordResetDate, Rank rank) {
+      super(id, firstName, lastName, personEmail, phoneNum, password, birth, gender, point, address, place, zipCode, userRole, lastPasswordResetDate);
       this.rank = rank;
    }
 }

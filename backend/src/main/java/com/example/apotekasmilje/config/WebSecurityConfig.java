@@ -88,6 +88,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/foo").permitAll()        // /api/foo
                 .antMatchers("/firebase/**").permitAll()
                 .antMatchers("/productType/all").permitAll()
+                .antMatchers("/product/search").permitAll()
+                .antMatchers("/product/findByCategory/{pageNo}/{pageSize}/{id}").permitAll()
+                .antMatchers("/product/findById/{id}").permitAll()
+                .antMatchers("/product/filterProduct").permitAll()
+                .antMatchers("/evaluation/all/{pageNo}/{pageSize}/{id}").permitAll()
+                .antMatchers("/evaluation/avg/{id}").permitAll()
+                .antMatchers("/productCategory/findByType/{id}").permitAll()
+                .antMatchers("/product/sort/{pageNo}/{pageSize}/{sort}/{id}").permitAll()
+
                 // ukoliko ne zelimo da koristimo @PreAuthorize anotacije nad metodama kontrolera, moze se iskoristiti hasRole() metoda da se ogranici
                 // koji tip korisnika moze da pristupi odgovarajucoj ruti. Npr. ukoliko zelimo da definisemo da ruti 'admin' moze da pristupi
                 // samo korisnik koji ima rolu 'ADMIN', navodimo na sledeci nacin:

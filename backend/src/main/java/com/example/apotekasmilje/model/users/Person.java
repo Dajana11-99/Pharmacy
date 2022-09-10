@@ -54,6 +54,13 @@ public class Person implements Serializable, UserDetails {
    private Gender gender;
    @Column(name="point")
    private Integer point;
+   @Column
+   private String address;
+   @Column
+   private String place;
+   @Column
+   private Long zipCode;
+
    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE} )
    @JoinColumn(name="role_id")
    private UserRole userRole;

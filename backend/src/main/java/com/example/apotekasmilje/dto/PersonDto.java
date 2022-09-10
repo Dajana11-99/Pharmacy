@@ -30,4 +30,7 @@ public class PersonDto {
     private String userRole;
     private Integer point;
     private Timestamp lastPasswordResetDate;
+    private String address;
+    private String place;
+    private Long   zipCode;
 }

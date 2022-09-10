@@ -27,7 +27,6 @@ public class ProductCategoryController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
-    @PreAuthorize("hasRole('Master_Of_Pharmacy')")
     @GetMapping("/findByType/{id}")
     public ResponseEntity<List<ProductCategoryDto>> findByType(@PathVariable Long id)  {
         try{

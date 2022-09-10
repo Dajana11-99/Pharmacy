@@ -1,8 +1,7 @@
 package com.example.apotekasmilje.controller;
 
-import com.example.apotekasmilje.dto.ProductCategoryDto;
+
 import com.example.apotekasmilje.dto.ProductDto;
-import com.example.apotekasmilje.dto.ProductTypeDto;
 import com.example.apotekasmilje.dto.SearchDto;
 import com.example.apotekasmilje.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,13 +59,17 @@ public class ProductController {
             return  new ResponseEntity<>("Техничка грешка, покушајте поново касније", HttpStatus.BAD_REQUEST);
         }
     }
-    @PreAuthorize("hasRole('Master_Of_Pharmacy')")
     @PostMapping("/search")
     public ResponseEntity<List<ProductDto>> searchByNameAndBrand(@RequestBody SearchDto searchDto)  {
         return  new ResponseEntity<>(productService.searchByNameAndBrand(searchDto.getSearch()), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('Master_Of_Pharmacy')")
+    @PostMapping("/filterProduct")
+    public ResponseEntity<List<ProductDto>> filterProduct(@RequestBody SearchDto searchDto)  {
+        return  new ResponseEntity<>(productService.filterProduct(searchDto), HttpStatus.OK);
+    }
+
+
     @GetMapping("/findByCategory/{pageNo}/{pageSize}/{id}")
     public ResponseEntity<List<ProductDto>> findByCategory(@PathVariable int pageNo, @PathVariable int pageSize,@PathVariable Long id)  {
         try{
@@ -75,7 +78,15 @@ public class ProductController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
-    @PreAuthorize("hasRole('Master_Of_Pharmacy')")
+
+    @GetMapping("/sort/{pageNo}/{pageSize}/{sort}/{id}")
+    public ResponseEntity<List<ProductDto>> sort(@PathVariable int pageNo, @PathVariable int pageSize,@PathVariable String sort,@PathVariable Long id)  {
+        try{
+            return  new ResponseEntity<>(productService.sort(pageNo,pageSize,sort,id), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
     @GetMapping("/findById/{id}")
     public ResponseEntity<ProductDto> findById(@PathVariable Long id)  {
 

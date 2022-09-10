@@ -16,7 +16,7 @@ public class PersonMapper {
             return  new Person(null, personDto.getFirstName(), personDto.getLastName(),
                     personDto.getPersonEmail(), personDto.getPhoneNum(),
                     personDto.getPassword(),LocalDate.parse(personDto.getBirth()),
-            personDto.getGender(), personDto.getPoint(),null,null);
+            personDto.getGender(), personDto.getPoint(), personDto.getAddress(), personDto.getPlace(), personDto.getZipCode(), null,null);
         }catch (Exception e){
             return null;
         }
@@ -32,7 +32,7 @@ public class PersonMapper {
     public PersonDto personToPersonDto(Person person){
         return  new PersonDto(person.getId(), person.getFirstName(), person.getLastName(),
                 person.getPersonEmail(), person.getPhoneNum(),null,person.getBirth().toString(),
-                person.getGender(),person.getUserRole().getName(), person.getPoint(), null);
+                person.getGender(),person.getUserRole().getName(), person.getPoint(), null, person.getAddress(), person.getPlace(), person.getZipCode());
     }
     public AuthenticatedUser personDtoToAuthenticatedUser(PersonDto personDto){
         try {
@@ -40,7 +40,7 @@ public class PersonMapper {
             return new AuthenticatedUser(null, personDto.getFirstName(), personDto.getLastName(),
                     personDto.getPersonEmail(), personDto.getPhoneNum(),
                     personDto.getPassword(), birth,
-                    personDto.getGender(), personDto.getPoint(), null, null,null);
+                    personDto.getGender(), personDto.getPoint(), personDto.getAddress(), personDto.getPlace(), personDto.getZipCode(),null, null,null);
         }catch (Exception e){
             return null;
         }

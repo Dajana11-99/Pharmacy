@@ -29,7 +29,6 @@ public class Basket {
    private float totalPrice;
    @OneToOne(cascade = {CascadeType.ALL})
    private AuthenticatedUser authenticatedUser;
-
    @ManyToMany(fetch = FetchType.EAGER,cascade =CascadeType.ALL)
    @JoinTable(name = "basket_product",
            joinColumns = @JoinColumn(name = "basket_id", referencedColumnName = "id"),

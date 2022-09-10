@@ -67,6 +67,9 @@ public class PersonServiceImpl implements PersonService {
             person.setLastName(personDto.getLastName());
             person.setPhoneNum(personDto.getPhoneNum());
             person.setGender(personDto.getGender());
+            person.setAddress(personDto.getAddress());
+            person.setPlace(personDto.getPlace());
+            person.setZipCode(person.getZipCode());
             personRepository.save(person);
             return true;
     }

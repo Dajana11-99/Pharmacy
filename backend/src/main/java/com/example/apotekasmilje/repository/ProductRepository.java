@@ -23,4 +23,6 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
 
     @Query("SELECT m FROM Product m WHERE m.id = :id")
     Product findProductById(Long id);
+    @Query("SELECT m FROM Product m WHERE m.productCategory.id = :id and m.price BETWEEN :from and :to")
+    List<Product> filterProduct(@Param("from")float from,@Param("to") float to, @Param("id") Long categoryId, Pageable paging);
 }

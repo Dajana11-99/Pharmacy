@@ -12,10 +12,12 @@ INSERT INTO user_role VALUES (3, 'ROLE_Pharmacy_Technicians');
 
 
 
+INSERT INTO person VALUES ('AuthenticatedUser', 1, 'Ljubice Ravasi 2A','2022-01-04', 'Dajana', 1, 'Zlokapa', NULL, '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'dajana@gmail.com', '0612219406','Novi Sad', 100,'2100', NULL, 1, 1);
+INSERT INTO person VALUES ('MasterOfPharmacy', 2, 'Ljubice Ravasi 2A', '1999-05-05', 'Magistar', 1, 'Magistar', NULL, '$2a$10$fMG59O4rPw1N6TJP82PUK.WKAeIuxKhluFeXgQ4dGOPElfyT.IQOu', 'magistar@gmail.com', '36565879','Novi Sad',0,'2100', '255ggfx5483qfds', 2, NULL);
+INSERT INTO person VALUES ('AuthenticatedUser', 3, 'Ljubice Ravasi 2A', '2022-09-22', 'neko', 0, 'prez', '2022-09-07 18:08:37.962', '$2a$10$AA15tpMVPMor6YDWbqodAO9cEhpJFWlR4Iga9dNs.wG3s9TPXiDwq', 'nek@gmail.com', '234234','Novi Sad', NULL,'2100', NULL, 3, NULL);
 
-INSERT INTO person VALUES ('AuthenticatedUser', 1, '2022-01-04', 'Dajana', 1, 'Zlokapa', NULL, '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'dajana@gmail.com', '0612219406', 100, NULL, 1, 1);
-INSERT INTO person VALUES ('MasterOfPharmacy', 2, '1999-05-05', 'Magistar', 1, 'Magistar', NULL, '$2a$10$fMG59O4rPw1N6TJP82PUK.WKAeIuxKhluFeXgQ4dGOPElfyT.IQOu', 'magistar@gmail.com', '36565879', 0, '255ggfx5483qfds', 2, NULL);
-INSERT INTO person VALUES ('AuthenticatedUser', 3, '2022-09-22', 'neko', 0, 'prez', '2022-09-07 18:08:37.962', '$2a$10$AA15tpMVPMor6YDWbqodAO9cEhpJFWlR4Iga9dNs.wG3s9TPXiDwq', 'nek@gmail.com', '234234', NULL, NULL, 3, NULL);
+
+
 
 
 
@@ -626,4 +628,5 @@ INSERT INTO public.product_images VALUES (172, 174);
 INSERT INTO public.product_images VALUES (173, 175);
 
 
-
+INSERT INTO public.product_evaluation VALUES (1, 'setyivfg', '2022-09-10', 3, true, 1, 114);
+INSERT INTO public.product_evaluation VALUES (2, 'kuuuuul', '2022-09-10', 5, true, 1, 114);
