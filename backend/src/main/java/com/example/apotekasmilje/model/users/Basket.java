@@ -4,7 +4,7 @@ package com.example.apotekasmilje.model.users; /********************************
  * Purpose: Defines the Class Basket
  ***********************************************************************/
 
-import com.example.apotekasmilje.model.products.Product;
+import com.example.apotekasmilje.model.products.BasketProducts;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,14 +25,8 @@ public class Basket {
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "basket_sequence_generator")
    @Column(name = "id", unique = true)
    private Long id;
-   @Column(name="totalPrice")
-   private float totalPrice;
-   @OneToOne(cascade = {CascadeType.ALL})
+   @OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE} )
    private AuthenticatedUser authenticatedUser;
-   @ManyToMany(fetch = FetchType.EAGER,cascade =CascadeType.ALL)
-   @JoinTable(name = "basket_product",
-           joinColumns = @JoinColumn(name = "basket_id", referencedColumnName = "id"),
-           inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"))
-   private List<Product> product;
-
+   @OneToMany(mappedBy = "basket",cascade = CascadeType.ALL)
+   private List<BasketProducts> basketProducts= new ArrayList<>();
 }

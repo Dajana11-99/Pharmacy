@@ -1,14 +1,11 @@
 package com.example.apotekasmilje.service.impl;
 
 import com.example.apotekasmilje.dto.PersonDto;
-import com.example.apotekasmilje.dto.ProductDto;
 import com.example.apotekasmilje.mapper.PersonMapper;
-import com.example.apotekasmilje.model.products.Product;
 import com.example.apotekasmilje.model.users.AuthenticatedUser;
 import com.example.apotekasmilje.model.users.Person;
 import com.example.apotekasmilje.model.users.Rank;
 import com.example.apotekasmilje.model.users.UserRole;
-import com.example.apotekasmilje.repository.AuthenticatedRepository;
 import com.example.apotekasmilje.repository.PersonRepository;
 import com.example.apotekasmilje.repository.UserRoleRepository;
 import com.example.apotekasmilje.service.PersonService;
@@ -32,8 +29,6 @@ public class PersonServiceImpl implements PersonService {
     @Autowired
     private UserRoleRepository userRoleRepository;
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    @Autowired
-    private AuthenticatedRepository authenticatedRepository;
     @Autowired
     private PersonRepository personRepository;
 

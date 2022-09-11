@@ -22,7 +22,7 @@ public class PersonController {
     private PersonService personService;
     @PreAuthorize("hasRole('Master_Of_Pharmacy')")
     @GetMapping("/all/{pageNo}/{pageSize}")
-    public ResponseEntity<List<PersonDto>> allProductTypes(@PathVariable int pageNo, @PathVariable int pageSize)  {
+    public ResponseEntity<List<PersonDto>> getAll(@PathVariable int pageNo, @PathVariable int pageSize)  {
         return  new ResponseEntity<>(personService.getAll(pageNo,pageSize), HttpStatus.OK);
     }
 

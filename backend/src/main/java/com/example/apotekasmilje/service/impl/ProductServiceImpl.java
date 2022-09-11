@@ -13,10 +13,7 @@ import com.example.apotekasmilje.model.products.Image;
 import com.example.apotekasmilje.model.products.Product;
 import com.example.apotekasmilje.model.products.ProductCategory;
 import com.example.apotekasmilje.repository.ProductRepository;
-import com.example.apotekasmilje.service.CharacteristicsService;
-import com.example.apotekasmilje.service.FirebaseService;
-import com.example.apotekasmilje.service.ProductCategoryService;
-import com.example.apotekasmilje.service.ProductService;
+import com.example.apotekasmilje.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -167,6 +164,7 @@ public class ProductServiceImpl implements ProductService {
                         searchDto.getCategoryId(),
                         paging));
     }
+
 
 
 }

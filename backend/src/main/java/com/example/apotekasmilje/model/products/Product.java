@@ -57,4 +57,6 @@ public class Product implements Serializable  {
    @OnDelete(action = OnDeleteAction.CASCADE)
    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
    private List<Characteristics>characteristics;
+   @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+   private List<BasketProducts> basketProducts = new ArrayList<>();
 }

@@ -16,7 +16,7 @@ public class ProductMapper {
         return new Product(productDto.getId(), productDto.getName(),productDto.getPrice(),
                 LocalDate.parse(productDto.getExpirationDate()), productDto.getQuantity(), false,null,
                productInformationMapper.productInformationDtoToProductInformation(productDto.getProductInformation()),null,null,
-                null);
+                null,null);
     }
     public ProductDto productToProductDto(Product product){
         return  new ProductDto(product.getId(), product.getName(), product.getPrice(),product.getExpirationDate().toString()
