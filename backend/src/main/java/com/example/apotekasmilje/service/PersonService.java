@@ -20,4 +20,8 @@ public interface PersonService {
     boolean delete(PersonDto personDto);
     boolean add(PersonDto personDto);
     List<PersonDto> search(String name);
+
+    void setUserPoints(AuthenticatedUser person);
+
+    void updatePoints(AuthenticatedUser authenticatedUser);
 }

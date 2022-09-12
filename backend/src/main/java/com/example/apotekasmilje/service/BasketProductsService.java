@@ -11,6 +11,7 @@ public interface BasketProductsService {
     boolean save(BasketProducts basketProducts);
     List<BasketProductsDto> findProductInBasket(Long id);
     Boolean deleteProduct(BasketProductsDto basketProductsDto);
+    void clearBasket(Long id);
 
 
 }

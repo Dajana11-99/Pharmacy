@@ -57,6 +57,12 @@ public class BasketServiceImpl implements BasketService {
 
 
 
+    @Override
+    public Basket save(Basket basket) {
+        return basketRepository.save(basket);
+    }
+
+
     private void saveProductInBasket(BasketDto basketDto, Basket basket){
         BasketProducts basketProducts= basketProductsService
                         .findByBasketAndProductId(basket.getId(),basketDto.getBasketProduct().get(0).getProduct().getId());

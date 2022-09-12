@@ -1,5 +1,6 @@
 package com.example.apotekasmilje.service;
 
+import com.example.apotekasmilje.dto.BasketProductsDto;
 import com.example.apotekasmilje.dto.ProductDto;
 import com.example.apotekasmilje.dto.SearchDto;
 import com.example.apotekasmilje.model.products.Image;
@@ -16,6 +17,7 @@ public interface ProductService {
     List<ProductDto> searchByNameAndBrand(String name);
     boolean update(ProductDto productDto);
     List<ProductDto> findByCategory(int pageNo,int pageSize,Long id);
+    List<BasketProductsDto> checkProductQuantity(List<BasketProductsDto> basketProductsDtos);
 
     ProductDto findById(Long id);
     Product findProductById(Long id);

@@ -2,12 +2,10 @@ package com.example.apotekasmilje.service.impl;
 
 import com.example.apotekasmilje.dto.PersonDto;
 import com.example.apotekasmilje.mapper.PersonMapper;
-import com.example.apotekasmilje.model.users.AuthenticatedUser;
-import com.example.apotekasmilje.model.users.Person;
-import com.example.apotekasmilje.model.users.Rank;
-import com.example.apotekasmilje.model.users.UserRole;
+import com.example.apotekasmilje.model.users.*;
 import com.example.apotekasmilje.repository.PersonRepository;
 import com.example.apotekasmilje.repository.UserRoleRepository;
+import com.example.apotekasmilje.service.BasketService;
 import com.example.apotekasmilje.service.PersonService;
 import com.example.apotekasmilje.service.RankService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,6 +34,9 @@ public class PersonServiceImpl implements PersonService {
     @Autowired
     private RankService rankService;
 
+    @Autowired
+    private BasketService basketService;
+
    private PersonMapper personMapper = new PersonMapper();
     public Person registerAuthenticatedUser(PersonDto personDto)  {
 
@@ -47,7 +49,8 @@ public class PersonServiceImpl implements PersonService {
            user.setUserRole(auth);
            user.setRank(rank);
             user.setPassword(passwordEncoder.encode(personDto.getPassword()));
-            personRepository.save(user);
+           AuthenticatedUser person= personRepository.save(user);
+           basketService.save(new Basket(null,person,new ArrayList<>()));
             return user;
         }catch (Exception e){
             return null;
@@ -89,6 +92,21 @@ public class PersonServiceImpl implements PersonService {
         List<Person> persons = personRepository
          .searchByFirstAndLastNameAndPersonEmail(name);
         return personMapper.personsToPersonDtos(persons);
+    }
+
+    @Override
+    public void setUserPoints(AuthenticatedUser person) {
+        person.setPoint(person.getPoint()+person.getRank().getPointsForCompletedOrder());
+        personRepository.save(person);
+    }
+
+    @Override
+    public void updatePoints(AuthenticatedUser authenticatedUser) {
+       int newPoints= authenticatedUser.getPoint()-authenticatedUser.getRank().getPointsForCancelledOrders();
+       if(newPoints<=0) authenticatedUser.setPoint(0);
+       else authenticatedUser.setPoint(newPoints);
+       personRepository.save(authenticatedUser);
+
     }
 
     public boolean delete(PersonDto personDto){

@@ -1,6 +1,7 @@
 package com.example.apotekasmilje.controller;
 
 
+import com.example.apotekasmilje.dto.BasketProductsDto;
 import com.example.apotekasmilje.dto.ProductDto;
 import com.example.apotekasmilje.dto.SearchDto;
 import com.example.apotekasmilje.service.ProductService;
@@ -16,7 +17,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/product", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProductController {
-
     @Autowired
     private ProductService productService;
 
@@ -36,6 +36,11 @@ public class ProductController {
         }catch (Exception e){
             return  new ResponseEntity<>("Техничка грешка, покушајте поново касније", HttpStatus.BAD_REQUEST);
         }
+    }
+    @PreAuthorize("hasRole('Authenticated_User')")
+    @PostMapping("/checkQuantity")
+    public ResponseEntity<List<BasketProductsDto>> checkQuantity(@RequestBody List<BasketProductsDto> basketProductsDto)  {
+        return  new ResponseEntity<>(productService.checkProductQuantity(basketProductsDto), HttpStatus.OK);
     }
     @PreAuthorize("hasRole('Master_Of_Pharmacy')")
     @PostMapping("/update")

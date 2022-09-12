@@ -26,5 +26,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
     @Query("SELECT m FROM Product m WHERE m.productCategory.id = :id and m.price BETWEEN :from and :to")
     List<Product> filterProduct(@Param("from")float from,@Param("to") float to, @Param("id") Long categoryId, Pageable paging);
 
+    @Query("SELECT  CASE WHEN  COUNT(m) > 0 THEN true ELSE false END FROM Product m WHERE m.id =:id and m.quantity>= :quantity")
+    Boolean checkProductQuantity(@Param("quantity")int quantity,@Param("id")Long id);
 
 }

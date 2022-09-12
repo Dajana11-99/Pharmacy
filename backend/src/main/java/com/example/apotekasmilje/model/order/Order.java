@@ -5,13 +5,17 @@ package com.example.apotekasmilje.model.order; /********************************
  ***********************************************************************/
 
 import com.example.apotekasmilje.model.enums.OrderStatus;
+import com.example.apotekasmilje.model.products.BasketProducts;
 import com.example.apotekasmilje.model.products.Product;
+import com.example.apotekasmilje.model.products.ProductCategory;
+import com.example.apotekasmilje.model.users.AuthenticatedUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -27,20 +31,22 @@ public class Order {
    @Column(name = "id", unique = true)
    private Long id;
    @Column(name = "date")
-   private Date date;
+   private LocalDate date;
    @Column(name = "totalPrice")
    private float totalPrice;
    @Column(name = "status")
    private OrderStatus status;
-   @ManyToOne(cascade = {CascadeType.ALL})
+   @Column(name = "discountPercentage")
+   private int discountPercentage;
+   @ManyToOne( cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
    @JoinColumn(name="delivery_id")
    private Delivery delivery;
-   @ManyToOne(cascade = {CascadeType.ALL})
+   @ManyToOne( cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
    @JoinColumn(name="payment_id")
    private Payment payment;
-   @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-   @JoinTable(name = "products_order",
-           joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id"),
-           inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"))
-   private List<Product> product;
+   @OneToMany(fetch = FetchType.EAGER,mappedBy = "order",cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
+   private List<OrderProducts> orderProducts= new ArrayList<>();
+   @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
+   @JoinColumn(name = "user_id")
+   private AuthenticatedUser authenticatedUser;
 }

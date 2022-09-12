@@ -17,11 +17,9 @@ public class BasketProducts implements Serializable {
     @EmbeddedId
     private BasketProductId id;
 
-
     @ManyToOne
     @JoinColumn(name = "basket_product_id",insertable = false,updatable = false)
     private Basket basket;
-
 
     @ManyToOne
     @JoinColumn(name = "product_basket_id",insertable = false,updatable = false)

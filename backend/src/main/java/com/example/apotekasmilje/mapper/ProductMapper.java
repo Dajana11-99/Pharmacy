@@ -16,17 +16,25 @@ public class ProductMapper {
         return new Product(productDto.getId(), productDto.getName(),productDto.getPrice(),
                 LocalDate.parse(productDto.getExpirationDate()), productDto.getQuantity(), false,null,
                productInformationMapper.productInformationDtoToProductInformation(productDto.getProductInformation()),null,null,
-                null,null);
+                null,null,null);
     }
     public ProductDto productToProductDto(Product product){
-        return  new ProductDto(product.getId(), product.getName(), product.getPrice(),product.getExpirationDate().toString()
+ ProductDto productDto= new ProductDto(product.getId(), product.getName(), product.getPrice(),product.getExpirationDate().toString()
         , product.getQuantity(),product.isOnSale(),imageMapper.imagesToImageDtos(product.getImage()),productInformationMapper.productInformationToProductInformationDto(product.getProductInformation()),
                 product.getProductCategory().getId(),characteristicsMapper.characteristicsToCharacteristicsDto(product.getCharacteristics()));
+ return productDto;
     }
     public List<ProductDto> productsToProductDtos(List<Product> products){
         List<ProductDto> productDtos = new ArrayList<>();
         for(Product product: products)
             productDtos.add(productToProductDto(product));
         return productDtos;
+    }
+
+    public List<Product>productDtosToProducts(List<ProductDto> productDtos){
+        List<Product> products = new ArrayList<>();
+        for(ProductDto productDto: productDtos)
+            products.add(productDtoToProduct(productDto));
+        return products;
     }
 }

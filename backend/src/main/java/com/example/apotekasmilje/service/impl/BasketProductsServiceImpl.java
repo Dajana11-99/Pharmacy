@@ -40,6 +40,10 @@ public class BasketProductsServiceImpl implements BasketProductsService {
                 .findProductInBasket(basket.getId()));
     }
 
+    public void clearBasket(Long id){
+    basketProductsRepository.deleteAll(basketProductsRepository.findProductInBasket(id));
+    }
+
     @Override
     public Boolean deleteProduct(BasketProductsDto basketProductsDto) {
         BasketProducts basketProducts= basketProductsRepository

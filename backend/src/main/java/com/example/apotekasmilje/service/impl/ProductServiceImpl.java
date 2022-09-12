@@ -1,5 +1,6 @@
 package com.example.apotekasmilje.service.impl;
 
+import com.example.apotekasmilje.dto.BasketProductsDto;
 import com.example.apotekasmilje.dto.CharacteristicsDto;
 
 import com.example.apotekasmilje.dto.ProductDto;
@@ -22,6 +23,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -165,6 +167,16 @@ public class ProductServiceImpl implements ProductService {
                         paging));
     }
 
+    public List<BasketProductsDto> checkProductQuantity(List<BasketProductsDto> basketProductsDtos){
+        List<BasketProductsDto> res= new ArrayList<>();
+        for(BasketProductsDto basketProductsDto:basketProductsDtos){
+            if(!productRepository
+            .checkProductQuantity(basketProductsDto.getQuantity(),basketProductsDto.getProduct().getId())){
+                res.add(basketProductsDto);
+            }
+        }
+        return res;
+    }
 
 
 }

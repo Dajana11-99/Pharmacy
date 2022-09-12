@@ -5,6 +5,7 @@ package com.example.apotekasmilje.model.products;
  * Purpose: Defines the Class Product
  ***********************************************************************/
 
+import com.example.apotekasmilje.model.order.OrderProducts;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -59,4 +60,6 @@ public class Product implements Serializable  {
    private List<Characteristics>characteristics;
    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
    private List<BasketProducts> basketProducts = new ArrayList<>();
+   @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+   private List<OrderProducts> orderProducts= new ArrayList<>();
 }
