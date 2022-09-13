@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.*;
 @Entity
 @Table(name="sales")
@@ -26,9 +27,9 @@ public class Sale {
    @Column(name = "name",nullable = false)
    private String name;
    @Column(name = "start",nullable = false)
-   private Date start;
+   private LocalDate start;
    @Column(name = "end_date",nullable = false)
-   private Date end;
-   @OneToMany(mappedBy = "sale",cascade = CascadeType.ALL)
+   private LocalDate end;
+   @OneToMany(fetch = FetchType.EAGER,mappedBy = "sale",cascade = CascadeType.ALL)
    private List<ProductSale> productSales;
 }

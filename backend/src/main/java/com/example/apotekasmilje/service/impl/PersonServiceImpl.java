@@ -67,7 +67,7 @@ public class PersonServiceImpl implements PersonService {
             person.setGender(personDto.getGender());
             person.setAddress(personDto.getAddress());
             person.setPlace(personDto.getPlace());
-            person.setZipCode(person.getZipCode());
+            person.setZipCode(personDto.getZipCode());
             personRepository.save(person);
             return true;
     }
@@ -120,9 +120,9 @@ public class PersonServiceImpl implements PersonService {
         }
     }
     public boolean add(PersonDto personDto){
-        try{
+        try {
             if(personRepository.findByPersonEmail(personDto.getPersonEmail())!=null)return false;
-            AuthenticatedUser user= personMapper.personDtoToAuthenticatedUser(personDto);
+            Person user=  personMapper.personDtoToPerson(personDto);
             UserRole auth = userRoleRepository.findByName("ROLE_Pharmacy_Technicians");
             if(auth==null)return false;
             user.setUserRole(auth);
@@ -132,6 +132,8 @@ public class PersonServiceImpl implements PersonService {
         }catch (Exception e){
             return false;
         }
+
+
     }
     public boolean checkUserRank(){
         try {

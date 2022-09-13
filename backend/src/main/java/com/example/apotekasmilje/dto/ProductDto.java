@@ -23,5 +23,6 @@ public class ProductDto {
     private ProductInformationDto productInformation;
     private Long idCategory;
     private  List<CharacteristicsDto> characteristics;
+    private int discount;
 
 }

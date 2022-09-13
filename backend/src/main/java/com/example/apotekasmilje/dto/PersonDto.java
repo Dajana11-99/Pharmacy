@@ -32,5 +32,5 @@ public class PersonDto {
     private Timestamp lastPasswordResetDate;
     private String address;
     private String place;
-    private Long   zipCode;
+    private String  zipCode;
 }

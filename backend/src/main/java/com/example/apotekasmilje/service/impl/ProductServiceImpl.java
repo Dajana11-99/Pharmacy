@@ -9,10 +9,10 @@ import com.example.apotekasmilje.mapper.CharacteristicsMapper;
 import com.example.apotekasmilje.mapper.ImageMapper;
 import com.example.apotekasmilje.mapper.ProductInformationMapper;
 import com.example.apotekasmilje.mapper.ProductMapper;
-import com.example.apotekasmilje.model.products.Characteristics;
 import com.example.apotekasmilje.model.products.Image;
 import com.example.apotekasmilje.model.products.Product;
 import com.example.apotekasmilje.model.products.ProductCategory;
+import com.example.apotekasmilje.model.products.ProductSale;
 import com.example.apotekasmilje.repository.ProductRepository;
 import com.example.apotekasmilje.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +31,14 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
+    private CharacteristicsService characteristicsService;
+    @Autowired
     private ProductCategoryService productCategoryService;
+    @Autowired
+    private SaleProductService saleProductService;
     private ProductMapper productMapper = new ProductMapper();
     private CharacteristicsMapper characteristicsMapper = new CharacteristicsMapper();
 
-    @Autowired
-    private CharacteristicsService characteristicsService;
     private ProductInformationMapper productInformationMapper = new ProductInformationMapper();
 
     private ImageMapper imageMapper =new ImageMapper();
@@ -123,8 +125,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> findByCategory(int pageNo,int pageSize,Long id) {
+        List<ProductDto> productDtos = new ArrayList<>();
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("name"));
-        return productMapper.productsToProductDtos(productRepository.findByCategory(id,paging));
+        for(Product product: productRepository.findByCategory(id,paging)){
+            ProductSale productSale=saleProductService.checkDoesProductOnSale(product.getId());
+            if(productSale!=null){
+                productDtos.add(productMapper.productToProductDt(product,productSale.getDiscount()));
+            }else {
+                productDtos.add(productMapper.productToProductDto(product));
+            }
+        }
+        return productDtos;
     }
 
     @Override

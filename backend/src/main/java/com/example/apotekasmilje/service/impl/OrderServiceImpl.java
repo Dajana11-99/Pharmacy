@@ -91,4 +91,52 @@ public class OrderServiceImpl implements OrderService {
         Page<Order> pagedResult = orderRepository.findHistory(email,paging);
         return orderMapper.ordersToOrderDtos(pagedResult.toList());
     }
+
+    @Override
+    public List<OrderInformationDto> findAllCurrentOrders(int pageNo,int pageSize) {
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("status").descending());
+        List<Order> pagedResult = orderRepository.findAllCurrentOrders(paging);
+        return orderMapper.ordersToOrderDtos(pagedResult);
+    }
+
+    @Override
+    public List<OrderInformationDto> findAllAcceptedOrders(int pageNo,int pageSize) {
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("status").descending());
+        List<Order> pagedResult = orderRepository.findAllAcceptedOrders(paging);
+        return orderMapper.ordersToOrderDtos(pagedResult);
+    }
+
+    @Override
+    public List<OrderInformationDto> findAllDeliveredOrders(int pageNo,int pageSize) {
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("status").descending());
+        List<Order> pagedResult = orderRepository.findAllDeliveredOrders(paging);
+        return orderMapper.ordersToOrderDtos(pagedResult);
+    }
+
+    @Override
+    public Boolean changeOrderStatus(String status, Long id) {
+        try {
+            Order order = orderRepository.findById(id).get();
+            OrderStatus orderStatus=getOrderStatus(status);
+            order.setStatus(getOrderStatus(status));
+            orderRepository.save(order);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    private OrderStatus getOrderStatus(String status) {
+         if(status.equals("CREATED")){
+            return OrderStatus.ACCEPTED;
+         } else if(status.equals("ACCEPTED")){
+            return OrderStatus.IN_PREPARATION;
+        }else if(status.equals("IN_PREPARATION")){
+            return OrderStatus.IN_TRANSPORT;
+        }else if(status.equals("IN_TRANSPORT")){
+            return OrderStatus.DELIVERED;
+        }else {
+            return OrderStatus.CREATED;
+       }
+    }
 }

@@ -11,4 +11,10 @@ public interface OrderService {
     public Boolean cancelOrder(OrderDto orderDto);
 
     List<OrderInformationDto> getUserHistory(int pageNo,int pageSize,String email);
+    List<OrderInformationDto> findAllCurrentOrders(int pageNo,int pageSize);
+    List<OrderInformationDto> findAllAcceptedOrders(int pageNo,int pageSize);
+
+    List<OrderInformationDto> findAllDeliveredOrders(int pageNo,int pageSize);
+
+    Boolean changeOrderStatus(String status, Long id);
 }

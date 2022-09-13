@@ -21,7 +21,7 @@ public class ProductMapper {
     public ProductDto productToProductDto(Product product){
  ProductDto productDto= new ProductDto(product.getId(), product.getName(), product.getPrice(),product.getExpirationDate().toString()
         , product.getQuantity(),product.isOnSale(),imageMapper.imagesToImageDtos(product.getImage()),productInformationMapper.productInformationToProductInformationDto(product.getProductInformation()),
-                product.getProductCategory().getId(),characteristicsMapper.characteristicsToCharacteristicsDto(product.getCharacteristics()));
+                product.getProductCategory().getId(),characteristicsMapper.characteristicsToCharacteristicsDto(product.getCharacteristics()),0);
  return productDto;
     }
     public List<ProductDto> productsToProductDtos(List<Product> products){
@@ -36,5 +36,12 @@ public class ProductMapper {
         for(ProductDto productDto: productDtos)
             products.add(productDtoToProduct(productDto));
         return products;
+    }
+
+    public ProductDto productToProductDt(Product product, Integer discount) {
+        ProductDto productDto= new ProductDto(product.getId(), product.getName(), product.getPrice(),product.getExpirationDate().toString()
+                , product.getQuantity(),product.isOnSale(),imageMapper.imagesToImageDtos(product.getImage()),productInformationMapper.productInformationToProductInformationDto(product.getProductInformation()),
+                product.getProductCategory().getId(),characteristicsMapper.characteristicsToCharacteristicsDto(product.getCharacteristics()),discount);
+        return productDto;
     }
 }

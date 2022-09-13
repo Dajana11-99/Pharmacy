@@ -19,29 +19,15 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductSale {
+public class ProductSale implements Serializable {
     @EmbeddedId
     private ProductSaleId id;
-
     @ManyToOne
-    @JoinColumn(name = "sale_id", insertable = false, updatable = false)
+    @JoinColumn(name = "sale_product_id", insertable = false, updatable = false)
     private Sale sale;
-
     @ManyToOne
-    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    @JoinColumn(name = "product_sale_id", insertable = false, updatable = false)
     private Product product;
-
     @Column(name = "discount")
     private Integer discount;
-
-    @Embeddable
-    public static class ProductSaleId implements Serializable {
-        @Column(name = "sale_id")
-        protected Long saleId;
-
-        @Column(name = "product_id")
-        protected Long productId;
-
-    }
-
 }

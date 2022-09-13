@@ -59,7 +59,7 @@ public class Person implements Serializable, UserDetails {
    @Column
    private String place;
    @Column
-   private Long zipCode;
+   private String zipCode;
 
    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE} )
    @JoinColumn(name="role_id")

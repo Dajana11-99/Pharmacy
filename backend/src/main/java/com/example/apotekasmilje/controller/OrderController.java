@@ -30,6 +30,29 @@ public class OrderController {
     public ResponseEntity<List<OrderInformationDto>> getUserHistory(@PathVariable int pageNo,@PathVariable int pageSize,@PathVariable String email) {
         return new ResponseEntity<>(orderService.getUserHistory(pageNo,pageSize,email), HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('Pharmacy_Technicians')")
+    @GetMapping("/findAllCurrentOrders/{pageNo}/{pageSize}")
+    public ResponseEntity<List<OrderInformationDto>> findAllCurrentOrders(@PathVariable int pageNo,@PathVariable int pageSize) {
+        return new ResponseEntity<>(orderService.findAllCurrentOrders(pageNo,pageSize), HttpStatus.OK);
+    }
+    @PreAuthorize("hasRole('Pharmacy_Technicians')")
+    @GetMapping("/findAllAcceptedOrders/{pageNo}/{pageSize}")
+    public ResponseEntity<List<OrderInformationDto>> findAllAcceptedOrders(@PathVariable int pageNo,@PathVariable int pageSize) {
+        return new ResponseEntity<>(orderService.findAllAcceptedOrders(pageNo,pageSize), HttpStatus.OK);
+    }
+    @PreAuthorize("hasRole('Pharmacy_Technicians')")
+    @GetMapping("/findAllDeliveredOrders/{pageNo}/{pageSize}")
+    public ResponseEntity<List<OrderInformationDto>> findAllDeliveredOrders(@PathVariable int pageNo,@PathVariable int pageSize) {
+        return new ResponseEntity<>(orderService.findAllDeliveredOrders(pageNo,pageSize), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('Pharmacy_Technicians')")
+    @GetMapping("/changeOrderStatus/{status}/{id}")
+    public ResponseEntity<Boolean> changeOrderStatus(@PathVariable String status,@PathVariable Long id) {
+        if(orderService.changeOrderStatus(status,id))
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+    }
 
     @PreAuthorize("hasRole('Authenticated_User')")
     @PostMapping("/save")

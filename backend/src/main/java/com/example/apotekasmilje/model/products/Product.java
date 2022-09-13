@@ -52,7 +52,7 @@ public class Product implements Serializable  {
    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
    @JoinColumn(name = "productCategory_id")
    private ProductCategory productCategory;
-   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+   @OneToMany(mappedBy = "product",cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
    private List<ProductSale> productSales;
    @LazyCollection(LazyCollectionOption.FALSE)
    @OnDelete(action = OnDeleteAction.CASCADE)

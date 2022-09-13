@@ -9,12 +9,13 @@ INSERT INTO public.user_role (id, name) VALUES (2, 'ROLE_Master_Of_Pharmacy');
 INSERT INTO public.user_role (id, name) VALUES (3, 'ROLE_Pharmacy_Technicians');
 
 
-INSERT INTO public.person (role, id, address, birth, first_name, gender, last_name, last_password_reset_date, password, person_email, phone_num, place, point, zip_code, licence_num, role_id, rank_id) VALUES ('MasterOfPharmacy', 2, 'Ljubice Ravasi 2A', '1999-05-05', 'Magistar', 1, 'Magistar', NULL, '$2a$10$fMG59O4rPw1N6TJP82PUK.WKAeIuxKhluFeXgQ4dGOPElfyT.IQOu', 'magistar@gmail.com', '36565879', 'Novi Sad', 0, 2100, '255ggfx5483qfds', 2, NULL);
-INSERT INTO public.person (role, id, address, birth, first_name, gender, last_name, last_password_reset_date, password, person_email, phone_num, place, point, zip_code, licence_num, role_id, rank_id) VALUES ('AuthenticatedUser', 3, 'Ljubice Ravasi 2A', '2022-09-22', 'neko', 0, 'prez', '2022-09-07 18:08:37.962', '$2a$10$AA15tpMVPMor6YDWbqodAO9cEhpJFWlR4Iga9dNs.wG3s9TPXiDwq', 'nek@gmail.com', '234234', 'Novi Sad', 0, 2100, NULL, 3, NULL);
-INSERT INTO public.person (role, id, address, birth, first_name, gender, last_name, last_password_reset_date, password, person_email, phone_num, place, point, zip_code, licence_num, role_id, rank_id) VALUES ('AuthenticatedUser', 100, 'Nikola Tesla 12', '2022-09-21', 'Dajana', 1, 'Zlokapa', '2022-09-12 16:58:26.538', '$2a$10$5/lfIgP5D8SJ5yj/NKnbD.t8IepekbvcefuTOPvrWG.a5G7mxnlsm', 'dajanazlokapa1@gmail.com', '23445756', 'Kozarska Dubica', 0, 74321, NULL, 1, 1);
+
+INSERT INTO public.person (role, id, address, birth, first_name, gender, last_name, last_password_reset_date, password, person_email, phone_num, place, point, zip_code, licence_num, role_id, rank_id) VALUES ('MasterOfPharmacy', 2, 'Ljubice Ravasi 2A', '1999-05-05', 'Magistar', 1, 'Magistar', NULL, '$2a$10$fMG59O4rPw1N6TJP82PUK.WKAeIuxKhluFeXgQ4dGOPElfyT.IQOu', 'magistar@gmail.com', '36565879', 'Novi Sad', 0, '2100', '255ggfx5483qfds', 2, NULL);
+INSERT INTO public.person (role, id, address, birth, first_name, gender, last_name, last_password_reset_date, password, person_email, phone_num, place, point, zip_code, licence_num, role_id, rank_id) VALUES ('AuthenticatedUser', 1, 'Nikola Tesla 12', '2022-09-21', 'Dajana', 1, 'Zlokapa', '2022-09-12 16:58:26.538', '$2a$10$5/lfIgP5D8SJ5yj/NKnbD.t8IepekbvcefuTOPvrWG.a5G7mxnlsm', 'dajanazlokapa1@gmail.com', '23445756', 'Kozarska Dubica', 0, '74321', NULL, 1, 1);
+INSERT INTO public.person (role, id, address, birth, first_name, gender, last_name, last_password_reset_date, password, person_email, phone_num, place, point, zip_code, licence_num, role_id, rank_id) VALUES ('Person', 100, NULL, '2022-09-21', 'farmaceut', 1, 'farmaceut', '2022-09-13 13:10:03.378', '$2a$10$.wtGRR27UX.aQT0Y7PWDveFeYaf0jHtqwxZRskavgqYApm6OTmUmG', 'farmaceut@gmail.com', '435345', NULL, NULL, NULL, NULL, 3, NULL);
 
 
-INSERT INTO public.basket (id, authenticated_user_id) VALUES (100, 100);
+INSERT INTO public.basket (id, authenticated_user_id) VALUES (100, 1);
 
 
 
