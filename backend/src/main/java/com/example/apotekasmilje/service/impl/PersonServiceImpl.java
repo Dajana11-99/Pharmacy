@@ -74,6 +74,12 @@ public class PersonServiceImpl implements PersonService {
    public Person findByPersonEmail(String email){
        return  personRepository.findByPersonEmail(email);
     }
+
+    @Override
+    public PharmacyTechnicians findByEmail(String email) {
+        return personRepository.findByEmail(email);
+    }
+
     public PersonDto personByEmail(String email){
         return  personMapper.personToPersonDto(personRepository.findByPersonEmail(email));
     }
@@ -122,7 +128,7 @@ public class PersonServiceImpl implements PersonService {
     public boolean add(PersonDto personDto){
         try {
             if(personRepository.findByPersonEmail(personDto.getPersonEmail())!=null)return false;
-            Person user=  personMapper.personDtoToPerson(personDto);
+            PharmacyTechnicians user= personMapper.convert(personMapper.personDtoToPerson(personDto));
             UserRole auth = userRoleRepository.findByName("ROLE_Pharmacy_Technicians");
             if(auth==null)return false;
             user.setUserRole(auth);

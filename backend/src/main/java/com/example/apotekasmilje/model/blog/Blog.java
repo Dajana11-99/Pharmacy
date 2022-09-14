@@ -26,10 +26,14 @@ public class Blog {
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "blog_sequence_generator")
    @Column(name = "id", unique = true)
    private Long id;
-   @Column(name = "text")
+   @Column(name = "text",length = 2000000)
    private String text;
-   @Column(name = "title")
+   @Column(name = "title",length = 512)
    private String title;
+   @Column(name = "status")
+   private boolean status;
+   @Column(name = "description",length = 1000)
+   private String description;
    @Column(name = "type")
    private Type type;
    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
@@ -37,7 +41,7 @@ public class Blog {
            joinColumns = @JoinColumn(name = "blog_id", referencedColumnName = "id"),
            inverseJoinColumns = @JoinColumn(name = "image_id", referencedColumnName = "id"))
    private List<Image> image;
-   @ManyToOne(cascade = {CascadeType.ALL})
+   @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
    @JoinColumn(name="pharmacy_id")
    private PharmacyTechnicians pharmacyTechnicians;
 }

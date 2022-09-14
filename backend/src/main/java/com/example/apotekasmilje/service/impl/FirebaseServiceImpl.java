@@ -1,6 +1,7 @@
 package com.example.apotekasmilje.service.impl;
 
 import com.example.apotekasmilje.model.products.Image;
+import com.example.apotekasmilje.service.BlogService;
 import com.example.apotekasmilje.service.FirebaseService;
 import com.example.apotekasmilje.service.ProductService;
 import com.google.cloud.storage.BlobId;
@@ -28,6 +29,9 @@ public class FirebaseServiceImpl implements FirebaseService {
     private static final String DOWNLOAD_URL ="https://firebasestorage.googleapis.com/v0/b/pharmacy-566b9.appspot/o/%s?alt=media";
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private BlogService blogService;
 
     private String uploadFile(File file, String fileName) throws IOException {
         String currentDirectory = System.getProperty("user.dir");
@@ -76,7 +80,13 @@ public class FirebaseServiceImpl implements FirebaseService {
         return newFileName;
     }
 
-
+    @Override
+    public String uploadBlogImage(MultipartFile multipartFile, String name)  {
+        String newFileName= upload(multipartFile);
+        Image image = new Image(null,newFileName);
+        blogService.addNewImage(name,image);
+        return newFileName;
+    }
 
 
 }

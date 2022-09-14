@@ -51,4 +51,14 @@ public class SaleServiceImpl implements SaleService {
         sale.setProductSales(productSale);
         saleRepository.save(sale);
     }
+
+
+
+    @Override
+    public void checkSale(Long saleId) {
+        Sale sale = saleRepository.findById(saleId).get();
+        if(sale.getProductSales().size()==0)
+            saleRepository.deleteById(saleId);
+
+    }
 }

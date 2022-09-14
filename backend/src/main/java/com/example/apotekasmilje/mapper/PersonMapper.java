@@ -3,6 +3,7 @@ package com.example.apotekasmilje.mapper;
 import com.example.apotekasmilje.dto.PersonDto;
 import com.example.apotekasmilje.model.users.AuthenticatedUser;
 import com.example.apotekasmilje.model.users.Person;
+import com.example.apotekasmilje.model.users.PharmacyTechnicians;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -46,4 +47,10 @@ public class PersonMapper {
         }
     }
 
+    public PharmacyTechnicians convert(Person person) {
+        return new PharmacyTechnicians(person.getId(), person.getFirstName(), person.getLastName(),
+                person.getPersonEmail(), person.getPhoneNum(),
+                person.getPassword(),person.getBirth(),
+                person.getGender(), person.getPoint(), person.getAddress(), person.getPlace(), person.getZipCode(), person.getUserRole(),person.getLastPasswordResetDate());
+    }
 }

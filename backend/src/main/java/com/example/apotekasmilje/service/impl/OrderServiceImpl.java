@@ -148,6 +148,13 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    @Override
+    public boolean checkDidUserOrderThisProduct(Long productId) {
+        if(orderRepository.checkDidUserOrderProduct(productId).size()>0)
+            return true;
+        return false;
+    }
+
     private OrderStatus getOrderStatus(String status) {
          if(status.equals("CREATED")){
             return OrderStatus.ACCEPTED;

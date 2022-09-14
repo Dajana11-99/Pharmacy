@@ -32,4 +32,14 @@ public class FirebaseController {
         }
 
     }
+    @PostMapping(value="/uploadBlogImage/{name}")
+    public ResponseEntity<String> uploadBlogImage(@PathVariable("name") String name, @RequestParam("file") MultipartFile multipartFile) {
+        try {
+            return  new ResponseEntity<>(firebaseService.uploadBlogImage(multipartFile,name), HttpStatus.OK);
+        } catch (IOException e) {
+            logger.error(e.toString());
+            return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
+        }
+
+    }
 }

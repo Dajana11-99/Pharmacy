@@ -26,4 +26,10 @@ public interface OrderRepository  extends PagingAndSortingRepository<Order, Long
 
     @Query("SELECT m FROM Order m  WHERE m.status = 2 or m.status=5 and m.authenticatedUser.personEmail=:email")
     Page<Order> findHistory(String email, Pageable paging);
+
+    @Query("SELECT m FROM Order m join OrderProducts " +
+            " o on m.id=o.order.id WHERE  m.status = 0 or m.status = 1 or m.status=3 " +
+            "or m.status=4 and o.product.id= :id")
+    List<Order> checkDidUserOrderProduct(@Param("id")Long id);
+
 }

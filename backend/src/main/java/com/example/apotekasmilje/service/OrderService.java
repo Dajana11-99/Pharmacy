@@ -17,4 +17,6 @@ public interface OrderService {
     List<OrderInformationDto> findAllDeliveredOrders(int pageNo,int pageSize);
 
     Boolean changeOrderStatus(String status, Long id);
+
+    boolean checkDidUserOrderThisProduct(Long productId);
 }

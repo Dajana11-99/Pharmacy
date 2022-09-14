@@ -17,4 +17,5 @@ public class SaleProductsMapper {
             productSaleDtos.add(new ProductSaleDto(productMapper.productToProductDto(productSale.getProduct()),productSale.getDiscount()));
     return  productSaleDtos;
     }
+
 }

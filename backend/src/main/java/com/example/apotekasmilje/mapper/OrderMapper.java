@@ -14,7 +14,7 @@ public class OrderMapper {
 
     private PaymentMapper paymentMapper = new PaymentMapper();
     private DeliveryMapper deliveryMapper= new DeliveryMapper();
-    
+
     public Order  orderDtoToOrder(OrderDto orderDto){
         return new Order(orderDto.getId(), LocalDate.now(),orderDto.getTotalPrice(),orderDto.getStatus(),orderDto.getDiscountPercentage()
         ,null,null,null,null);

@@ -25,11 +25,11 @@ public class Complaint {
    @SequenceGenerator(name = "complaint_sequence_generator", sequenceName = "complaint_sequence", initialValue = 100)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "complaint_sequence_generator")
    @Column(name = "id", unique = true)
-   private int id;
+   private Long id;
    @Column(name = "reason")
    private String reason;
    @Column(name = "status",columnDefinition = "boolean default false")
    private boolean status=false;
-   @ManyToOne(cascade = {CascadeType.ALL})
+   @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
    private ProductSale productSale;
 }

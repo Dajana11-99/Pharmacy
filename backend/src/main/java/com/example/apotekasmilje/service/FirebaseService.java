@@ -10,4 +10,5 @@ import java.util.List;
 public interface FirebaseService {
     String uploadProductImage(MultipartFile newImage, String name) throws IOException;
 
+    String uploadBlogImage(MultipartFile multipartFile, String name)throws IOException;
 }
