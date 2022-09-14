@@ -94,8 +94,17 @@ public class ProductServiceImpl implements ProductService {
         }
     }
     public List<ProductDto> searchByNameAndBrand(String name){
-        return productMapper
-        .productsToProductDtos(productRepository.searchByNameAndBrand(name));
+        List<ProductDto> productDtos = new ArrayList<>();
+        for(Product product:  productRepository.searchByNameAndBrand(name)){
+            ProductSale productSale=saleProductService.checkDoesProductOnSale(product.getId());
+            if(productSale!=null){
+                productDtos.add(productMapper.productToProductDt(product,productSale.getDiscount()));
+            }else {
+                productDtos.add(productMapper.productToProductDto(product));
+            }
+        }
+        return productDtos;
+
     }
     @Override
     public boolean update(ProductDto productDto) {
@@ -140,9 +149,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto findById(Long id) {
-
-        return productMapper
-        .productToProductDto(productRepository.findProductById(id));
+         Product product= productRepository.findProductById(id);
+            ProductSale productSale=saleProductService.checkDoesProductOnSale(product.getId());
+            if(productSale!=null){
+                return productMapper.productToProductDt(product,productSale.getDiscount());
+            }else {
+                return  productMapper.productToProductDto(product);
+            }
     }
     @Override
     public Product findProductById(Long id) {
@@ -150,32 +163,51 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findProductById(id);
     }
 
-
     @Override
     public List<ProductDto> sort(int pageNo, int pageSize, String sort,Long id) {
+        Pageable paging;
+
         if(Integer.parseInt(sort)==1){
-            Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("price").ascending());
-            return productMapper.productsToProductDtos(productRepository.findByCategory(id,paging));
+             paging = PageRequest.of(pageNo, pageSize, Sort.by("price").ascending());
         }else if(Integer.parseInt(sort)==2){
-            Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("price").descending());
-            return productMapper.productsToProductDtos(productRepository.findByCategory(id,paging));
+             paging = PageRequest.of(pageNo, pageSize, Sort.by("price").descending());
         }else if(Integer.parseInt(sort)==3){
             return null;
         }else {
-            Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("name"));
-            return productMapper.productsToProductDtos(productRepository.findByCategory(id,paging));
+             paging = PageRequest.of(pageNo, pageSize, Sort.by("name"));
         }
+        return convertProduct(id,paging);
     }
+
+  private List<ProductDto> convertProduct(Long id,Pageable paging){
+      List<ProductDto> productDtos = new ArrayList<>();
+      for(Product product:  productRepository.findByCategory(id,paging)){
+          ProductSale productSale=saleProductService.checkDoesProductOnSale(product.getId());
+          if(productSale!=null){
+              productDtos.add(productMapper.productToProductDt(product,productSale.getDiscount()));
+          }else {
+              productDtos.add(productMapper.productToProductDto(product));
+          }
+      }
+      return productDtos;
+  }
 
     @Override
     public List<ProductDto> filterProduct(SearchDto searchDto) {
         Pageable paging = PageRequest.of(searchDto.getPageNo(), searchDto.getPageSize(),Sort.by("price").ascending());
-        return productMapper
-                .productsToProductDtos(productRepository
-                .filterProduct(searchDto.getFrom(),
-                        searchDto.getTo(),
-                        searchDto.getCategoryId(),
-                        paging));
+        List<ProductDto> productDtos = new ArrayList<>();
+        for(Product product: productRepository
+                .filterProduct(searchDto.getFrom(),searchDto.getTo(), searchDto.getCategoryId(), paging))
+        {
+            ProductSale productSale=saleProductService.checkDoesProductOnSale(product.getId());
+            if(productSale!=null){
+                productDtos.add(productMapper.productToProductDt(product,productSale.getDiscount()));
+            }else {
+                productDtos.add(productMapper.productToProductDto(product));
+            }
+        }
+        return productDtos;
+
     }
 
     public List<BasketProductsDto> checkProductQuantity(List<BasketProductsDto> basketProductsDtos){

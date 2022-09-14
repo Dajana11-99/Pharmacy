@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface OrderRepository  extends PagingAndSortingRepository<Order, Long> {
 
-    @Query("SELECT m FROM Order m  WHERE  m.status = 1 or m.status=3 or m.status=4 and m.authenticatedUser.personEmail=:email")
+    @Query("SELECT m FROM Order m  WHERE  m.status = 0 or m.status = 1 or m.status=3 or m.status=4 and m.authenticatedUser.personEmail=:email")
     List<Order> findAllByUser(@Param("email")String email);
 
     @Query("SELECT m FROM Order m  WHERE m.status = 0")

@@ -3,10 +3,14 @@ package com.example.apotekasmilje.service.impl;
 import com.example.apotekasmilje.dto.OrderDto;
 import com.example.apotekasmilje.dto.OrderInformationDto;
 import com.example.apotekasmilje.dto.OrderProductsDto;
+import com.example.apotekasmilje.dto.ProductDto;
 import com.example.apotekasmilje.mapper.OrderMapper;
+import com.example.apotekasmilje.mapper.ProductMapper;
+import com.example.apotekasmilje.mapper.ProductOrderMapper;
 import com.example.apotekasmilje.model.enums.OrderStatus;
 import com.example.apotekasmilje.model.order.*;
 import com.example.apotekasmilje.model.products.Product;
+import com.example.apotekasmilje.model.products.ProductSale;
 import com.example.apotekasmilje.model.users.AuthenticatedUser;
 import com.example.apotekasmilje.repository.OrderRepository;
 import com.example.apotekasmilje.service.*;
@@ -39,7 +43,12 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private BasketProductsService basketProductsService;
     @Autowired
+    private SaleProductService saleProductService;
+    @Autowired
     private BasketService basketService;
+
+    private ProductMapper productMapper = new ProductMapper();
+    private ProductOrderMapper productOrderMapper = new ProductOrderMapper();
 
     public boolean saveOrder(OrderDto orderDto){
             Payment payment= paymentService.findById(orderDto.getPaymentId());
@@ -70,7 +79,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public List<OrderInformationDto> findAllByUser(String email){
-       return orderMapper.ordersToOrderDtos(orderRepository.findAllByUser(email));
+        List<OrderInformationDto> orderInformationDtos= new ArrayList<>();
+        for(Order order: orderRepository.findAllByUser(email)){
+        orderInformationDtos.add(checkOrderProducts(order));
+        }
+        return orderInformationDtos;
+
     }
 
     public Boolean cancelOrder(OrderDto orderDto){
@@ -87,30 +101,38 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderInformationDto> getUserHistory(int pageNo,int pageSize,String email) {
+        List<OrderInformationDto> orderInformationDtos= new ArrayList<>();
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("date").descending());
-        Page<Order> pagedResult = orderRepository.findHistory(email,paging);
-        return orderMapper.ordersToOrderDtos(pagedResult.toList());
+        for(Order order: orderRepository.findHistory(email,paging))
+            orderInformationDtos.add(checkOrderProducts(order));
+        return orderInformationDtos;
     }
 
     @Override
     public List<OrderInformationDto> findAllCurrentOrders(int pageNo,int pageSize) {
+        List<OrderInformationDto> orderInformationDtos= new ArrayList<>();
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("status").descending());
-        List<Order> pagedResult = orderRepository.findAllCurrentOrders(paging);
-        return orderMapper.ordersToOrderDtos(pagedResult);
+        for(Order order: orderRepository.findAllCurrentOrders(paging))
+            orderInformationDtos.add(checkOrderProducts(order));
+        return orderInformationDtos;
     }
 
     @Override
     public List<OrderInformationDto> findAllAcceptedOrders(int pageNo,int pageSize) {
+        List<OrderInformationDto> orderInformationDtos= new ArrayList<>();
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("status").descending());
-        List<Order> pagedResult = orderRepository.findAllAcceptedOrders(paging);
-        return orderMapper.ordersToOrderDtos(pagedResult);
+        for(Order order: orderRepository.findAllAcceptedOrders(paging))
+            orderInformationDtos.add(checkOrderProducts(order));
+        return orderInformationDtos;
     }
 
     @Override
     public List<OrderInformationDto> findAllDeliveredOrders(int pageNo,int pageSize) {
+        List<OrderInformationDto> orderInformationDtos= new ArrayList<>();
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("status").descending());
-        List<Order> pagedResult = orderRepository.findAllDeliveredOrders(paging);
-        return orderMapper.ordersToOrderDtos(pagedResult);
+        for(Order order: orderRepository.findAllDeliveredOrders(paging))
+         orderInformationDtos.add(checkOrderProducts(order));
+        return orderInformationDtos;
     }
 
     @Override
@@ -139,4 +161,15 @@ public class OrderServiceImpl implements OrderService {
             return OrderStatus.CREATED;
        }
     }
+    private  OrderInformationDto checkOrderProducts(Order order){
+        List<OrderProductsDto> orderProductsDtos= new ArrayList<>();
+        for(OrderProducts p: order.getOrderProducts()) {
+            ProductSale productSale = saleProductService.checkDoesProductOnSale(p.getProduct().getId());
+            int discount=0;
+            if (productSale != null) discount=productSale.getDiscount();
+            orderProductsDtos.add(new OrderProductsDto(productMapper.productToProductDt(p.getProduct(),discount),p.getQuantity()));
+        }
+        return orderMapper.orderToOrderInformation(order, orderProductsDtos);
+    }
+
 }

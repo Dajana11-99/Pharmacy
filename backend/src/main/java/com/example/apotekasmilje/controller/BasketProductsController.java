@@ -22,9 +22,9 @@ public class BasketProductsController {
     private BasketProductsService basketProductsService;
 
     @PreAuthorize("hasRole('Authenticated_User')")
-    @GetMapping("/products/{id}")
-    public ResponseEntity<List<BasketProductsDto>> findAll(@PathVariable Long id)  {
-        return  new ResponseEntity<>(basketProductsService.findProductInBasket(id), HttpStatus.OK);
+    @GetMapping("/products/{email}/")
+    public ResponseEntity<List<BasketProductsDto>> findAll(@PathVariable String email)  {
+        return  new ResponseEntity<>(basketProductsService.findProductInBasket(email), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('Authenticated_User')")
