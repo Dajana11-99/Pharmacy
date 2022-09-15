@@ -9,4 +9,15 @@ public interface BlogService {
     void addNewImage(String name, Image image);
     Boolean save(BlogDto blogDto);
     List<BlogDto> findByUser(int pageNo, int pageSize, String email);
+
+    List<BlogDto> findAllUnAccepted(int pageNo, int pageSize);
+    List<BlogDto> findAllPubishedBlogsByType(int pageNo, int pageSize,int type);
+
+    BlogDto findByTitle(String title);
+
+    boolean publish(BlogDto blogDto);
+
+    boolean delete(BlogDto blogDto);
+
+    List<BlogDto> findAllAccepted(int pageNo, int pageSize);
 }

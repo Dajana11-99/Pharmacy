@@ -1,11 +1,10 @@
 package com.example.apotekasmilje.service.impl;
 
 import com.example.apotekasmilje.dto.BlogDto;
-import com.example.apotekasmilje.dto.ComplaintDto;
 import com.example.apotekasmilje.mapper.BlogMapper;
 import com.example.apotekasmilje.mapper.PersonMapper;
 import com.example.apotekasmilje.model.blog.Blog;
-import com.example.apotekasmilje.model.products.Complaint;
+import com.example.apotekasmilje.model.enums.Type;
 import com.example.apotekasmilje.model.products.Image;
 import com.example.apotekasmilje.model.users.Person;
 import com.example.apotekasmilje.model.users.PharmacyTechnicians;
@@ -40,6 +39,67 @@ public class BlogServiceImpl implements BlogService {
         Person person=personService.findByPersonEmail(email);
         Pageable paging = PageRequest.of(pageNo, pageSize);
         List<Blog> pagedResult = blogRepository.findByUser(person.getId(),paging);
+        return blogMapper.blogsToBlogDtos(pagedResult);
+    }
+
+    @Override
+    public List<BlogDto> findAllUnAccepted(int pageNo, int pageSize) {
+        Pageable paging = PageRequest.of(pageNo, pageSize);
+        List<Blog> pagedResult = blogRepository.findAllUnAccepted(paging);
+        return blogMapper.blogsToBlogDtos(pagedResult);
+    }
+
+    @Override
+    public List<BlogDto> findAllPubishedBlogsByType(int pageNo, int pageSize,int type) {
+        Pageable paging = PageRequest.of(pageNo, pageSize);
+        Type res;
+        if(type==0){
+            res =Type.HEALTH;
+        }else if(type==1){
+            res=Type.BEAUTY;
+        }else {
+            res=Type.BABIES;
+        }
+        List<Blog> pagedResult = blogRepository.findAllPubishedBlogsByType(res,paging);
+        return blogMapper.blogsToBlogDtos(pagedResult);
+    }
+
+    @Override
+    public BlogDto findByTitle(String title) {
+        return blogMapper.blogToBlogDto(blogRepository.findByTitle(title));
+    }
+
+    @Override
+    public boolean publish(BlogDto blogDto) {
+        try {
+            Blog blog =blogRepository.findById(blogDto.getId()).get();
+            if(blog==null)return false;
+            blog.setStatus(true);
+            blogRepository.save(blog);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+
+    }
+
+    @Override
+    public boolean delete(BlogDto blogDto) {
+        try {
+            Blog blog =blogRepository.findById(blogDto.getId()).get();
+            if(blog==null)return false;
+            blogRepository.deleteById(blog.getId());
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+
+    }
+
+    @Override
+    public List<BlogDto> findAllAccepted(int pageNo, int pageSize) {
+        Pageable paging = PageRequest.of(pageNo, pageSize);
+        List<Blog> pagedResult = blogRepository.findAllAccepted(paging);
         return blogMapper.blogsToBlogDtos(pagedResult);
     }
 

@@ -59,7 +59,7 @@ public class ProductController {
         try {
             if(productService.delete(productDto))
                 return  new ResponseEntity<>("Успјешно обрисан производ!", HttpStatus.OK);
-            return  new ResponseEntity<>("Производ није обрисан!", HttpStatus.BAD_REQUEST);
+            return  new ResponseEntity<>("Производ није обрисан! Корисник га је наручио.", HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             return  new ResponseEntity<>("Техничка грешка, покушајте поново касније", HttpStatus.BAD_REQUEST);
         }

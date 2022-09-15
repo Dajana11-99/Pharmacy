@@ -4,6 +4,7 @@ import com.example.apotekasmilje.dto.ProductTypeDto;
 import com.example.apotekasmilje.mapper.ProductTypeMapper;
 import com.example.apotekasmilje.model.products.ProductType;
 import com.example.apotekasmilje.repository.ProductTypeRepository;
+import com.example.apotekasmilje.service.OrderService;
 import com.example.apotekasmilje.service.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 
     @Autowired
     private ProductTypeRepository productTypeRepository;
+    @Autowired
+    private OrderService orderService;
 
     private ProductTypeMapper productTypeMapper = new ProductTypeMapper();
 

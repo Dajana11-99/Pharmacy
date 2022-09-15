@@ -28,7 +28,6 @@ public class ProductCategory {
    private String name;
    @Column(name = "description", nullable = false,length = 512)
    private String description;
-   @OnDelete(action = OnDeleteAction.CASCADE)
    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
    @JoinColumn(name="type_id")
    private  ProductType productType;

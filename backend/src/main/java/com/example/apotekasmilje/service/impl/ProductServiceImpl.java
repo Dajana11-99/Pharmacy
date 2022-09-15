@@ -34,6 +34,9 @@ public class ProductServiceImpl implements ProductService {
     private CharacteristicsService characteristicsService;
     @Autowired
     private ProductCategoryService productCategoryService;
+
+    @Autowired
+    private OrderService orderService;
     @Autowired
     private SaleProductService saleProductService;
     private ProductMapper productMapper = new ProductMapper();
@@ -86,7 +89,7 @@ public class ProductServiceImpl implements ProductService {
     public boolean delete(ProductDto productDto){
         try{
             Product product=productRepository.findById(productDto.getId()).get();
-            if(product==null)return false;
+           if(orderService.checkDidUserOrderThisProduct(product.getId()))return false;
             productRepository.deleteById(productDto.getId());
             return true;
         }catch (Exception e){
