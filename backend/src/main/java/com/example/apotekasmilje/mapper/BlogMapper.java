@@ -15,7 +15,7 @@ public class BlogMapper {
     public BlogDto blogToBlogDto(Blog blog){
         return new BlogDto(blog.getId(), blog.getText(), blog.getTitle(), blog.getDescription(), blog.isStatus(), blog.getType()
         ,imageMapper.imagesToImageDtos(blog.getImage()),blog.getPharmacyTechnicians().getFirstName()
-                +"  "+blog.getPharmacyTechnicians().getLastName());
+                +"  "+blog.getPharmacyTechnicians().getLastName(),blog.getPharmacyTechnicians().getPersonEmail());
     }
 
     public List<BlogDto> blogsToBlogDtos(List<Blog> blogs){

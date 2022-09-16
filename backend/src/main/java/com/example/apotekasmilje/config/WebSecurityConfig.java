@@ -93,6 +93,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/product/findById/{id}").permitAll()
                 .antMatchers("/product/filterProduct").permitAll()
                 .antMatchers("/blog/findByTitle").permitAll()
+                .antMatchers("/answer/findAll").permitAll()
+                .antMatchers("/question//findAll/{pageNo}/{pageSize}").permitAll()
                 .antMatchers("/blog/findAllPubishedBlogsByType/{pageNo}/{pageSize}/{type}").permitAll()
                 .antMatchers("/evaluation/all/{pageNo}/{pageSize}/{id}").permitAll()
                 .antMatchers("/evaluation/avg/{id}").permitAll()

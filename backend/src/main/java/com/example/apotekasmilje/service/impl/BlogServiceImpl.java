@@ -103,6 +103,11 @@ public class BlogServiceImpl implements BlogService {
         return blogMapper.blogsToBlogDtos(pagedResult);
     }
 
+    @Override
+    public Blog findById(Long blogId) {
+        return blogRepository.findById(blogId).get();
+    }
+
     public Boolean save(BlogDto blogDto){
         try {
             Blog blog =blogRepository.findByTitle(blogDto.getTitle());

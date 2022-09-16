@@ -21,4 +21,5 @@ public class BlogDto {
     private Type   type;
     private List<ImageDto> image;
     private String pharmacyTechnicians;
+    private String email;
 }

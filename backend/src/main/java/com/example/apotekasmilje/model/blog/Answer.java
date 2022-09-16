@@ -30,10 +30,10 @@ public class Answer {
    private Long id;
    @Column(name = "text")
    private String text;
-   @ManyToOne(cascade = {CascadeType.ALL})
+   @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
    @JoinColumn(name="pharmacy_id")
    private PharmacyTechnicians pharmacyTechnicians;
-   @ManyToOne(cascade = {CascadeType.ALL})
+   @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
    @JoinColumn(name="question_id")
    private Question question;
 }

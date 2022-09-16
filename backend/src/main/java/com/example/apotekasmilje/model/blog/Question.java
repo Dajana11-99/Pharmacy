@@ -27,12 +27,10 @@ public class Question {
    private Long id;
    @Column(name = "text")
    private String text;
-   @Column(name = "status")
-   private boolean status;
-   @ManyToOne(cascade = {CascadeType.ALL})
+   @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
    @JoinColumn(name="blog_id")
    public  Blog blog;
-   @ManyToOne(cascade = {CascadeType.ALL})
+   @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE})
    @JoinColumn(name="user_id")
    public AuthenticatedUser authenticatedUser;
    }

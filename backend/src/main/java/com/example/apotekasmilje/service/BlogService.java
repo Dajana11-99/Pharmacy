@@ -1,6 +1,7 @@
 package com.example.apotekasmilje.service;
 
 import com.example.apotekasmilje.dto.BlogDto;
+import com.example.apotekasmilje.model.blog.Blog;
 import com.example.apotekasmilje.model.products.Image;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface BlogService {
     boolean delete(BlogDto blogDto);
 
     List<BlogDto> findAllAccepted(int pageNo, int pageSize);
+
+    Blog findById(Long blogId);
 }
