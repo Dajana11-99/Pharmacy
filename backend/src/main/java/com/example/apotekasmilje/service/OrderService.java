@@ -19,4 +19,6 @@ public interface OrderService {
     Boolean changeOrderStatus(String status, Long id);
 
     boolean checkDidUserOrderThisProduct(Long productId);
+    List<OrderInformationDto>searchByUser(String name);
+    List<OrderInformationDto>searchByStatus(String status);
 }

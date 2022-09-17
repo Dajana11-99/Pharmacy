@@ -155,6 +155,31 @@ public class OrderServiceImpl implements OrderService {
         return false;
     }
 
+    public List<OrderInformationDto>searchByUser(String name){
+        List<OrderInformationDto> orderInformationDtos= new ArrayList<>();
+        for(Order order: orderRepository.searchByUser(name))
+            orderInformationDtos.add(checkOrderProducts(order));
+        return orderInformationDtos;
+    }
+
+    public List<OrderInformationDto>searchByStatus(String status){
+        OrderStatus orderStatus=null;
+        if(status.equals("ACCEPTED")){
+            orderStatus=OrderStatus.ACCEPTED;
+        }else if(status.equals("IN_TRANSPORT")){
+            orderStatus=OrderStatus.IN_TRANSPORT;
+        }else if(status.equals("IN_PREPARATION")){
+            orderStatus=OrderStatus.IN_PREPARATION;
+        }else if(status.equals("DELIVERED")){
+            orderStatus=OrderStatus.DELIVERED;
+        }
+        List<OrderInformationDto> orderInformationDtos= new ArrayList<>();
+        for(Order order: orderRepository.searchByStatus(orderStatus))
+            orderInformationDtos.add(checkOrderProducts(order));
+        return orderInformationDtos;
+    }
+
+
     private OrderStatus getOrderStatus(String status) {
          if(status.equals("CREATED")){
             return OrderStatus.ACCEPTED;

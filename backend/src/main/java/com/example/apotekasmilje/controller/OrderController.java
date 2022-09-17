@@ -3,6 +3,7 @@ package com.example.apotekasmilje.controller;
 
 import com.example.apotekasmilje.dto.OrderDto;
 import com.example.apotekasmilje.dto.OrderInformationDto;
+import com.example.apotekasmilje.dto.SearchDto;
 import com.example.apotekasmilje.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,17 @@ public class OrderController {
     @GetMapping("/findAllDeliveredOrders/{pageNo}/{pageSize}")
     public ResponseEntity<List<OrderInformationDto>> findAllDeliveredOrders(@PathVariable int pageNo,@PathVariable int pageSize) {
         return new ResponseEntity<>(orderService.findAllDeliveredOrders(pageNo,pageSize), HttpStatus.OK);
+    }
+    @PreAuthorize("hasRole('Pharmacy_Technicians')")
+    @PostMapping("/searchByName")
+    public ResponseEntity<List<OrderInformationDto>> searchByName(@RequestBody SearchDto searchDto) {
+        return new ResponseEntity<>(orderService.searchByUser(searchDto.getSearch()), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('Pharmacy_Technicians')")
+    @GetMapping("/searchByStatus/{status}")
+    public ResponseEntity<List<OrderInformationDto>> searchByStatus(@PathVariable String status) {
+        return new ResponseEntity<>(orderService.searchByStatus(status), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('Pharmacy_Technicians')")
