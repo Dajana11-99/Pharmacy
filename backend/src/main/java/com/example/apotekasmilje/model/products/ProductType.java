@@ -19,8 +19,8 @@ import java.util.*;
 @NoArgsConstructor
 public class ProductType {
    @Id
-   @SequenceGenerator(name = "product_t_sequence_generator", sequenceName = "product_t_sequence", initialValue = 100)
-   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_t_sequence_generator")
+   @SequenceGenerator(name = "product_t_sequee_generator", sequenceName = "product_t_seqence", initialValue = 200)
+   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_t_seqnce_generator")
    @Column(name = "id", unique = true)
    private Long id;
    @Column(name = "name",nullable = false)
